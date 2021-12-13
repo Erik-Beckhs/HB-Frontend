@@ -1,0 +1,30 @@
+<aside class="left-sidebar">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+                <li class="nav-devider"></li>
+                <!--<li><a routerLinkActive="active"class="waves-effect waves-dark" routerLink="/pages/profile"><span class="d-flex"> <mat-icon class="me-2">supervised_user_circle</mat-icon><span class="hide-menu">Información general</span>
+                     </span></a>
+                </li>-->
+                <li *ngFor="let menu of _sidebar.menu"><a [routerLink]="[menu.url]" routerLinkActive="active" [ngClass]="menu.submenu? 'has-arrow' : ''" class="waves-effect waves-dark" href="#collapseBusiness" aria-expanded="false" aria-controls="collapseBusiness" data-toggle="collapse"><span class="d-flex"><mat-icon  class="mr-2">{{menu.icon}}</mat-icon><span class="hide-menu">{{menu.title}}</span></span></a>
+                    <ul aria-expanded="false" class="collapse" id="collapseBusiness">
+                        <li><a *ngFor="let submenu of menu.submenu" [routerLink]="[submenu.url]" routerLinkActive="active"  class="cursor">{{submenu.title}}</a></li>
+                    </ul>
+                </li>
+                <!--<li> <a routerLinkActive="active"class="waves-effect waves-dark " routerLink="/pages/pays"><span class="d-flex"><mat-icon class="me-2">payment</mat-icon>
+                   <span class="hide-menu">Pago y facturación</span> </span></a>
+                </li>
+                <li > <a routerLinkActive="active" class="waves-effect waves-dark " routerLink="/pages/password" aria-expanded="false"><span class="d-flex"><mat-icon class="me-2">security</mat-icon>
+                    <span class="hide-menu">Contraseña</span></span></a>
+                </li>
+                <li> <a routerLinkActive="active" class="waves-effect waves-dark "  aria-expanded="false" routerLink="/pages/settings"><span class="d-flex"><mat-icon class="me-2">settings</mat-icon>
+                   <span class="hide-menu"> Configuración y privacidad </span></span></a>
+                </li>-->
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+</aside>

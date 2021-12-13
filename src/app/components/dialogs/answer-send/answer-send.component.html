@@ -1,0 +1,13 @@
+<div class="background-modal-dark" *ngIf="_answerSend.stateModal">
+    <div class="mt-5 modal fade bs-example-modal-lg show" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: block;">
+        <div class="modal-dialog modal-lg ">
+            <div class="modal-content text-white cursor" [ngClass]="styleState()">
+                <div class="modal-body">
+                    <div class="row d-flex justify-content-center">
+                        <p (click)="closeModal()" class="h5">{{ state == 0 ? 'Respuesta enviada exitosamente al solicitante' : 'Rechazó la cotización'}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

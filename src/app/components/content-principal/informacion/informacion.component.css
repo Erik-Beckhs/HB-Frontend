@@ -1,0 +1,30 @@
+.informacion hr{
+    margin:3px;
+    border: none;
+    height: 3px; /* Set the hr color */ 
+    color: #333; /* old IE */ 
+    background-color: #333; /* Modern Browsers */
+  }
+
+  .btn-cyan{
+    background-color: #0dcaf0;
+    color:#fff;
+    font-size:13px;
+    font-weight:400;
+  }
+
+  .informacion a{
+    text-decoration: none;
+  }
+
+  .informacion hr{
+    margin-top:5px;
+    margin-bottom: 20px;
+    border: none;
+    height: 3px; /* Set the hr color */ 
+    color: #CCCCCC; /* old IE */ 
+    background-color: #CCCCCC; /* Modern Browsers */
+  }
+  .txt14{
+    font-size:14px;
+  }

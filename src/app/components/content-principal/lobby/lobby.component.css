@@ -1,0 +1,13 @@
+.carousel-control-next{
+    height:50px;
+    width:100px;
+    top: 45%;
+    background-color: #000;
+}
+
+.carousel-control-prev{
+    height:50px;
+    width:100px;
+    top: 45%;
+    background-color:#000;
+}

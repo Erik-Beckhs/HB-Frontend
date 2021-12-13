@@ -1,0 +1,30 @@
+.active{
+    color:#0dcaf0;
+}
+
+.aside-info{
+    min-height:560px;
+    /*background-color:#0dcaf0;*/
+    background: #0dcaf0;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #6dd5ed, #0dcaf0);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #6dd5ed, #0dcaf0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color:#fff;
+    font-size:17px;
+    line-height: 20px;
+}
+
+.aside-info input{
+    background-color: #a6dffa;
+    border:none;
+}
+
+.aside-info textarea{
+    background-color: #a6dffa;
+    border:none;
+}
+
+.aside-info textarea:focus{
+    background-color: #79c5e7;
+}

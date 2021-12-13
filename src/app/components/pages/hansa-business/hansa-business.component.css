@@ -1,0 +1,8 @@
+.business hr{
+  margin-top:15px;
+  margin-bottom: 20px;
+  border: none;
+  height: 3px; /* Set the hr color */ 
+  color: #CCCCCC; /* old IE */ 
+  background-color: #CCCCCC; /* Modern Browsers */
+}

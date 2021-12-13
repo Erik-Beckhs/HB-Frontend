@@ -1,0 +1,135 @@
+<div class="animated fadeIn">
+<form ngNativeValidate #f="ngForm" (ngSubmit)="saveProduct(f.value)">
+    <!--<form ngNativeValidate #f="ngForm">-->
+    <div>
+        <h3>
+            <span>{{type==1?'Producto :': 'Servicio :'}}  </span>
+            {{data.tradename | fillEmpty | titlecase}}</h3>
+        <h6 class="text-muted">Ingrese informacion adicional del 
+            <span>{{type==1?'producto': 'servicio'}}  </span>
+            solicitado</h6>
+        <hr>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card" style="margin-bottom: 0;">
+                <div class="card-body" style="padding:10px;">
+
+                    <table class="table table-hover">
+                        <thead class="text-white bg-primary-classic">
+                            <th class="text-center">Nombre</th>
+                            <th class="text-center">Unidad</th>
+                            <th class="text-center">Cantidad</th>
+                            <th class="text-center">Mi Precio</th>
+                            <th class="text-center">Subtotal</th>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center">
+                                <td>{{data.tradename | fillEmpty | titlecase}}</td>
+                                <td>{{data.unit | fillEmpty }}</td>
+                                <td>{{data.amount | fillEmpty | number:'1.2-4' }}</td>
+                                <td>{{data.priceDiscount ? data.priceDiscount : data.unitPriceOffer | fillEmpty | number:'1.2-4'}}</td>
+                                <td>{{data.amount * (data.priceDiscount? data.priceDiscount : data.unitPriceOffer ) | fillEmpty | number:'1.2-4'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                </div>
+            </div>
+        </div> 
+    </div>
+
+    
+    <div class="row mx-3 rounded p-3 py-4 bg-cyan-gradiant mb-2">
+
+            <div class="col-4 h6 text-white">
+                <div class="form-group">
+                    <label>Nombre del 
+                        <span>{{type == 1 ?'producto': 'servicio'}} </span>
+                        ofertado</label>
+                    <input [ngModel]="data.offerName" name="offerName" required type="text" class="form-control ">
+                </div>
+                <div class="form-group">
+                    <label>
+                        <span>{{type == 1? 'Número de parte': 'Acerca del servicio'}} </span></label>  
+                    <input [ngModel]="data.about" name="about" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Link de visualización</label>
+                    <input [ngModel]="data.link" name="link" type="text" class="form-control">
+                </div>
+            </div>
+
+            <div class="col-4 h6 text-white">
+                <div class="form-group">
+                    <label>
+                        <span>Tiempo de {{type==1?'entrega': 'servicio'}}  (dias) </span>
+
+                        </label>
+                    <input required (change)="validTimeService()"  [ngModel]="data.timeService" name="timeService" type="number" class="form-control" min="0">
+                </div>
+                <div class="form-group">
+                    <label>
+                        <span *ngIf = "type==1">Ventajas del {{type==1?'producto': 'servicio'}} </span>
+                    </label>
+                    <textarea [ngModel]="data.advantage" name="advantage" class="form-control" id="" cols="30" rows="6"></textarea>
+                </div>
+            </div>
+
+            <div class="col-4 h6 text-white border">
+                <div class="text-center my-3">
+                <div>
+                    <img *ngIf="!imageTemp" [src]="data.img" class="w200 img-fluid rounded mb-2">
+                    <img *ngIf="imageTemp" [src]="imageTemp" class="w200 img-fluid rounded mb-2">
+                </div>
+                    <label for="btnImg" class="txt-13 pointer scale badge bg-info px-3 py-2"><i class="fa fa-cloud-upload"></i> Agregar Imagen</label>
+                    <input type="file" (change)="onFileChange($event)" id="btnImg" style="display: none;">
+                </div>
+
+                <div class="my-2">
+                    
+                    <div class="row py-4 mb-2" *ngIf="documentLoad" class="border d-flex">
+                        <div class="col-3 py-2">
+                            <img [src]="documentLoad.name | imgDoc" class="w100 img-fluid">
+                        </div>
+                        <div class="col-9 txt-15 pt-3">
+                            <div>
+                                {{documentLoad.name}}
+                            </div>
+                            <div>
+                                {{documentLoad.size}} Kb
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row py-4 mb-2" *ngIf="data.doc && !documentLoad" class="border d-flex">
+                        <div class="col-3 py-2">
+                            <img [src]="data.nameDoc | imgDoc" class="w100 img-fluid">
+                        </div>
+                        <div class="col-9 txt-15 pt-3">
+                            <div>
+                                {{data.nameDoc}}
+                            </div>
+                            <div>
+                                {{document.size}} Kb
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="text-center">
+                        <label for="btnDoc" class="txt-13 pointer scale badge bg-info px-3 py-2"><i class="fa fa-paperclip"></i> Agregar Documento</label>
+                        <input (change)="onDocChange($event)" type="file" id="btnDoc" style="display: none;">
+                    </div>
+            </div>
+
+        </div>
+
+        <div class="text-right">
+           <!-- <button type="button" mat-raised-button class="mx-1" mat-dialog-close><i class="fa fa-save"></i> Hecho</button>-->
+           <button type="submit" mat-raised-button class="mx-1"><i class="fa fa-save"></i> {{data.idAnswerProd ? 'Actualizar' : 'Guardar'}}</button>
+           <button type="button" mat-raised-button mat-dialog-close color="primary">Cancelar</button>
+        </div>
+    </form>
+</div>
+

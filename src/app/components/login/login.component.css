@@ -1,0 +1,46 @@
+.page-container{
+  background-color: #f4f6f9;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  padding: 1% 0;
+}
+
+mat-card{
+  border-radius: 10px;
+  margin:30px auto;
+  width:60%;
+  padding:0px !important;
+}
+
+.matInput{
+    width:200px;
+}
+.mat-button-toggle {
+    background-color:#fff;
+    color: #3f51b5;
+  }
+
+  .mat-button-toggle-checked {
+    background-color: #3f51b5;
+    color:#fff;
+
+  }
+
+#img-login{
+  height:100%;
+  margin:0px !important;
+}
+
+.d-flex{
+  display: flex;
+}
+
+.justify-content-end{
+  justify-content: flex-end;
+}
+
+.active{
+  background-color: #3f51b5;
+  color:#fff;
+}

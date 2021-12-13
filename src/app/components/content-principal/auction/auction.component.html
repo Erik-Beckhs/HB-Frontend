@@ -1,0 +1,109 @@
+<div>
+    <div class="my-2 productos">
+        <div class="row">
+            <div class="col-6">
+                <div style="position:absolute; bottom:0px;">
+                    <span class="h6 font-weight-bold"><i class="fa fa-shopping-cart"></i> Productos / Servicios</span>
+                    <br>
+                    <span class="size-12 pt-2">Vigencia de la oferta en días </span><input [disabled]="products.length == 0" style="height:25px; border-radius:5px; width:50px;" class="ml-2" type="number" min="0">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row d-flex justify-content-end">
+                    <app-countdown></app-countdown>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div *ngIf="products.length == 0">
+            <div class="alert alert-warning txt-15" role="alert">
+               No existen productos
+            </div>
+            <div class="text-right">
+                <button mat-raised-button (click)="volver()" color="secondary" class="scale">Volver</button>
+            </div>
+        </div>
+
+        <div class="py-1 px-4" *ngIf="products.length > 0">
+            <div class="scroll">
+                <table mat-table [dataSource]="dataSource">
+              
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Nombre </th>
+                    <td mat-cell *matCellDef="let element"> {{element.tradename | titlecase}} </td>
+                  </ng-container>
+              
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="amount">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Cantidad </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{element.amount}} </td>
+                  </ng-container>
+              
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="unitPriceOffer">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Mi Precio </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> 
+                        <input min="0" (change)="changePrice(element)" (keyup)="changePrice(element)" type="number" class="form-control w100" name="unitprice" [(ngModel)]="element.priceDiscount">
+                    </td>                  
+                  </ng-container>
+              
+                  <!-- Symbol Column -->
+                  <ng-container matColumnDef="discount">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Descuento </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> 
+                        <div class="">
+                            <input type="number" (change)="changeDiscount(element)" min="0" [(ngModel)]="element.discount" style="width:80px;" class="form-control" name="unitprice">
+                            <select (change)="changeDiscount(element)" class="form-control size-10" style="width:60px;" [(ngModel)]="element.typeDiscount" name="valorSelect">
+                                <option *ngFor="let sel of select" [value]="sel.value">{{sel.name}}</option>
+                            </select>
+                        </div>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="subTotalOffer" >
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Subtotal </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">{{element.amount * element.priceDiscount | number:'1.2-3'}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="edit" >
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Más información </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        <button (click)="responseProduct(element)" title="Responder" type="button" class="btn bg-cyan btn-circle text-white scale">
+                            <i class="fa fa-plus"></i> 
+                        </button>
+                     </td>
+                  </ng-container>
+              
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+              
+                <mat-paginator [pageSizeOptions]="[5]"
+                               showFirstLastButtons 
+                               aria-label="Select page of periodic elements">
+                </mat-paginator>
+            </div>
+
+            <div class="text-right" style="min-width:150px;">
+                <div class="row d-flex justify-content-end">
+                    <mat-card style="width: 300px;">
+                        <h4 class="text-info font-weight-bold text-center">Total: {{total | number:'1.2-3'}} {{money}} </h4>
+                        <button (click)="bid()" mat-raised-button color="secondary" class="scale form-control">Enviar puja</button>
+                    </mat-card>
+                </div>
+            </div>
+
+        </div>
+
+      </div>
+
+      <div>
+        <span class="h6 font-weight-bold"><i class="fa fa-bar-chart-o"></i> Cuadro competitivo</span>
+        <hr>
+        <div class="mx-2" style="width:1000px; height:500px;">
+            <app-auction-chart></app-auction-chart>
+        </div>
+    </div>
+      
+</div>

@@ -1,0 +1,38 @@
+<form ngNativeValidate class="example-form" 
+        #formLogin="ngForm" 
+        (ngSubmit)="onLogin(formLogin)"
+        >
+          <div>
+            <mat-card-title>Inicio de sesión</mat-card-title> 
+            <p class="card-text mt-5">Vamos a conectarte</p>
+          </div>
+            <mat-card-content class="mt-2" fxLayoutAlign="stretch" fxLayout="column">
+              <mat-form-field appearance="fill" style="width:100%;">
+                <mat-label>Correo electrónico</mat-label>
+                <input matInput type="email" required name="email" placeholder="example@hansa.com.bo" [ngModel]="email"  required>
+                <!--<mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>-->
+              </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                  <mat-label>Contraseña</mat-label>
+                  <input required matInput [type]="hide ? 'password' : 'text'" ngModel name="password">
+                  <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+                </mat-form-field>
+
+              <div class="row h6" style="font-size:13px;">
+                <div class="col-md-6 text-start">
+                  <mat-checkbox [ngModel]="remember" name="remember" class="example-margin">Recuerdame</mat-checkbox>
+                </div>
+                <div class="col-md-6 d-flex justify-content-end">
+                  <a routerLink="/retrieve" class="card-text"><span class="text-muted">¿Has olvidado tu contraseña?</span></a>
+                </div>
+              </div>
+            </mat-card-content>
+          <mat-card-actions class="footer-card d-flex justify-content-end mt-5">
+            <button mat-raised-button color="primary" type="submit">Iniciar sesión</button>
+            <!--<button mat-raised-button color="danger" type="button" (click)="cargaLogin()">Obtener datos</button>-->
+          </mat-card-actions>
+        </form>
+        

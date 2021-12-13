@@ -1,0 +1,83 @@
+<form class="example-form" 
+    ngNativeValidate 
+    [formGroup]="formContact" 
+    (ngSubmit)="registerContact()"
+        >
+            <mat-card-title>Registrarse</mat-card-title>
+            <mat-card-content class="mt-2" fxLayoutAlign="stretch" fxLayout="column">
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field class="example-full-width" style="width:100%;" appearance="fill">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput formControlName="first_name" name="first_name" required >
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width" style="width:100%;" appearance="fill">
+                            <mat-label>Apellidos</mat-label>
+                            <input matInput name="last-name" formControlName="last_name" required >
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" style="width:100%;">
+                            <mat-label>Teléfono</mat-label>
+                            <input matInput name="phone" formControlName="phone" required>
+                            <mat-icon matSuffix>phone</mat-icon>
+                            <mat-hint>Debe incluir codigo de país</mat-hint>
+                          </mat-form-field>
+                            <mat-form-field appearance="fill" style="width:100%;">
+                                <mat-label>País</mat-label>
+                                <mat-select required name="country" formControlName="country">
+                                  <mat-option *ngFor="let pais of paisList" [value]="pais">{{pais}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="example-full-width" style="width:100%;" appearance="fill">
+                          <mat-label>Ciudad</mat-label>
+                          <input matInput formControlName="city" name="city"  required >
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" style="width:100%;">
+                            <mat-label>Correo electrónico</mat-label>
+                            <input type="email" formControlName="email"  matInput required placeholder="example@hansa.com.bo" required>
+                            <!--<mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>-->
+                          </mat-form-field>
+                          <mat-form-field appearance="fill" style="width:100%;">
+                            <mat-label>Contraseña</mat-label>
+                            <input required matInput  formControlName="password"  [type]="hide ? 'password' : 'text'" name="pass">
+                            <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                          </mat-form-field>
+                          <mat-form-field appearance="fill" style="width:100%;">
+                            <mat-label>Repita su contraseña</mat-label>
+                            <input required matInput  formControlName="password2"  [type]="hide ? 'password' : 'text'" name="pass">
+                            <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                          </mat-form-field>
+                          <div class="form-group" *ngIf="formContact.errors?.sonIguales && !formContact.pristine">
+                              <mat-hint class="text-danger">
+                                  Las contraseñas deben ser iguales
+                              </mat-hint>
+                          </div>
+                       <!-- <mat-form-field appearance="fill" style="width:100%;">
+                            <mat-label>Empresa</mat-label>
+                            <input required matInput [(ngModel)]="supplier.name" type="text" name="supplier">
+                            <mat-error> </mat-error>
+                          </mat-form-field>
+                          <mat-form-field appearance="fill" style="width:100%;">
+                            <mat-label>Rubro</mat-label>
+                            <mat-select required name="rubro" [(ngModel)]="supplier.rubro">
+                              <mat-option *ngFor="let rubro of rubros" [value]="rubro.codigo">{{rubro.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>-->
+                </div>
+                </div>
+            </mat-card-content>
+            <mat-card-footer class="d-flex">
+                <!--<mat-checkbox [checked]="isChecked" (change)="isChecked=!isChecked" class="example-margin">Estoy de acuerdo con los </mat-checkbox> <a href="#" class="ms-1">términos y condiciones</a> -->
+                <mat-checkbox [checked]="conditions" (change)="conditions=!conditions" class="example-margin">Estoy de acuerdo con los </mat-checkbox> <a (click)="openDialog()" class="ml-1 text-primary h6"> términos y condiciones</a>
+            </mat-card-footer>
+            <mat-card-actions class="footer-card d-flex justify-content-end mt-3">
+                <button [disabled]="!conditions" mat-raised-button color="primary" type="submit" class="scale">Crear cuenta</button></mat-card-actions>
+        </form>
+
+        
+       

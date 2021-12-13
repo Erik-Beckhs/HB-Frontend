@@ -1,0 +1,22 @@
+*{
+    box-sizing: border-box;
+  }
+  
+  .pays hr{
+    margin-top:15px;
+    margin-bottom: 20px;
+    border: none;
+    height: 3px; /* Set the hr color */ 
+    color: #CCCCCC; /* old IE */ 
+    background-color: #CCCCCC; /* Modern Browsers */
+}
+
+  .bg-gray{
+    background-color:#EDF2EA;
+    color:#B4B8B2;
+  }
+
+  .none{
+      min-height:180px;
+      margin:15px 60px;
+  }

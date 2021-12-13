@@ -1,0 +1,109 @@
+<div>
+    <div class="row animated fadeIn">
+        <div class="col-md-8 px-5 py-4">
+            <router-outlet></router-outlet>
+        </div>
+        <div class="col-md-4 aside-info py-4 px-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="h6">Fecha de Presentación</label>
+                        <input type="text" class="form-control mt-1 txt-15" [ngModel]="date | date:'short'" readOnly >
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="h6">Tipo</label>
+                        <input type="text" class="form-control mt-1 txt-15" readOnly [ngModel]="quotation.type | fillEmpty">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="h6">Moneda</label>
+                        <input type="text" class="form-control mt-1 txt-15" readOnly [ngModel]="quotation.money | moneySupplier | fillEmpty">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group mx-3">
+                    <label class="h6">Objeto de la Cotización</label>
+                    <textarea name=""  readOnly id="" cols="35" rows="2" class="mt-1 form-control txt-15">{{quotation.description | fillEmpty}}</textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="h6">Tipo de adjudicación</label>
+                        <input type="text" class="form-control mt-1 txt-15" [ngModel]="quotation.adjudicationType | fillEmpty" readOnly>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="h6">Condición de Pago</label>
+                        <input type="text" class="form-control mt-1 txt-15" readOnly [ngModel]="quotation.payCondition | payconditionSupplier" >
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="px-3">
+                <div class="row">
+                    <label class="h6">Plazo</label>
+                </div>
+
+                <!--<div class="col-md-6">
+                    <div class="form-group">
+                        <label class="h6">Fecha de Inicio</label>
+                        <input type="text" class="form-control mt-1 txt-15" [ngModel]="quotation.start | date: 'medium' | fillEmpty" readOnly>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="h6">Fecha de Conclusión</label>
+                        <input type="text" class="form-control mt-1 txt-15" [ngModel]="quotation.end | date: 'medium' | fillEmpty" readOnly >
+                    </div>
+                </div>-->
+                
+                <div class="row">
+                    <div class="col-6 d-flex align-items-center justify-content-center" style="min-height: 50px; background-color: rgb(7, 133, 133);">
+                        <div class="row">
+                            <div class="col-5 text-right" style="position:relative;">
+                                <i class="fa fa-calendar-o fa-2x"></i>
+                                <span class="font-weight-bold" style="position: absolute; left:37%; top:30%;">{{dayStart}}</span>
+                            </div>
+                            <div class="col-7 txt-15 font-weight-bold">
+                                <div >
+                                   {{ monthStart | titlecase }}
+                                </div>
+                                <div>
+                                    {{ quotation.start | date:'shortTime' }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 text-dark d-flex align-items-center justify-content-center" style="min-height: 60px; background-color: rgb(211, 250, 250);">
+                        <div class="row">
+                            <div class="col-5 text-center" style="position:relative;">
+                                <i class="fa fa-calendar-o fa-2x"></i>
+                                <span class="font-weight-bold" style="position: absolute; left:36%; top:30%;">{{dayEnd}}</span>
+                            </div>
+                            <div class="col-7 txt-15 font-weight-bold">
+                                <div>
+                                   {{ monthEnd | titlecase }}
+                                </div>
+                                <div>
+                                    {{ quotation.end | date:'shortTime' }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

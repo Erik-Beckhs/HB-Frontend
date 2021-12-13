@@ -1,0 +1,106 @@
+<div class="px-5 py-3  general">
+    <div class="row">
+        <div class="col-8">
+            <p class="my-2"><span class="h5">Información general</span></p>
+            <div class="info" style="font-size: 15px;">
+            <p class="text-muted px-3"> Información básica que utilizas para ser parte de nuestros proveedores</p>
+            <p><span class="font-weight-bold px-3"> Nota.</span><span class="text-muted"> Solo tú puedes ver esta información </span></p>
+            </div>
+        </div>
+        <div class="col-4 text-right">
+          <div class="btn-group" *ngIf="supplier.name">
+            <button type="button" mat-raised-button class="btn px-5 form-control scale-hover dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-edit"></i> Editar</button>
+            <div class="dropdown-menu" x-placement="bottom-start" style="width:inherit; position: absolute; transform: translate3d(0px, 36px, 0px); top: 0px; left: 0px; will-change: transform;">
+              <a class="dropdown-item" routerLink="/pages/profile">Editar Usuario / Contacto</a>
+              <a class="dropdown-item" routerLink="/pages/business/supplier">Editar Proveedor</a>
+            </div>
+          </div>
+          <button *ngIf="!supplier.name" routerLink="/pages/business/supplier" type="button" mat-raised-button class="btn px-5 form-control scale-hover"><i class="fa fa-edit"></i> Registrar Proveedor</button>
+        </div>
+    </div>
+  <div class="row mt-3">
+    <div class="col-md-6">
+      <div class="row h6 px-3">
+        Información básica
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-4 p-2 text-center">
+          <img *ngIf="supplier.img" [src]="supplier.img" class="avatar rounded-circle mat-elevation-z8">
+          <img *ngIf="!supplier.img" src="https://www.farmaciasannicolas.com/Producto/GetMultimediaProducto?idProducto=625c8280-7418-4b36-bc86-929f09787e66&idMultimedia=25aa4cf2-ab94-4c01-a219-afa655d47198" alt="" class="avatar rounded-circle mat-elevation-z8">
+          <p class="text-muted mt-4">{{contact.first_name}} {{contact.last_name}}</p>
+          <p class="h4">{{supplier.name | fillEmpty}}</p>
+          <!--<p class="h4" *ngIf="contact.suppliers.name">{{contact.suppliers.name}}</p>-->
+        </div>
+        <div class="col-md-8 p-2 ps-5">
+          <div class="form-group my-3">
+            <div class="h6">Nombre y Apellidos</div>
+            <div class="text-muted">{{contact.first_name}} {{contact.last_name}}</div>
+          </div>
+          <div class="form-group my-3">
+            <div class="h6">Empresa</div>
+            <div class="text-muted">{{supplier.name | fillEmpty}}</div>
+            <!--<span class="text-muted" *ngIf="contact.suppliers.name">{{contact.suppliers.name}}</span>-->
+          </div>
+          <div class="form-group my-3">
+            <div class="h6">País</div>
+            <div class="text-muted">{{supplier.country | fillEmpty}}</div>
+            <!--<span class="text-muted" *ngIf="contact.suppliers.country">{{contact.country}}</span>-->
+          </div>
+          <!--<div class="form-group my-3">
+            <div class="h6">Ciudad / provincia</div>
+            <div class="text-muted">{{contact.city | fillEmpty}}</div>
+          </div>-->
+          <div class="form-group my-3">
+            <div class="h6">Cargo o profesión</div>
+            <div class="text-muted">{{contact.position | fillEmpty}}</div>
+            <!--<span class="text-muted" *ngIf="contact.suppliers.position">{{showPosition(contact.position)}}</span>-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="row h6 px-3">
+        Información de contacto
+      </div>
+      <hr>
+      <div class="px-5 mt-2">
+        <div class="form-group my-3">
+          <div class="h6">Correo electrónico</div>
+          <div class="text-muted">{{contact.email}}</div>
+        </div>
+        <div class="form-group my-3">
+          <div class="h6">Teléfono</div>
+          <div class="text-muted">{{contact.phone}}</div>
+        </div>
+      </div>
+      <div class="row h6 px-3 mt-2">
+        Categoría de Proveedor
+      </div>
+      <hr>
+      <div class="px-5">
+        <div class="form-group text-start my-2">
+          <div class="h6">Tipo</div>
+          <div class="text-muted">{{supplier.type | typeSupplier}}</div>
+          <!--<span class="text-muted" *ngIf="contact.suppliers.type">{{contact.suppliers.type}}</span>-->
+        </div>
+        <div class="form-group text-start my-2">
+          <div class="h6">Rubro</div>
+          <div class="text-muted">{{showRubro(supplier.businessArea) | fillEmpty}}</div>
+          <!--<span class="text-muted" *ngIf="contact.suppliers.rubro">{{showRubro(contact.suppliers.businessArea)}}</span>-->
+        </div>
+      </div>
+      <!--<div class="d-flex justify-content-end mt-5">-->
+        <!--<button mat-raised-button color="accent" (click)="openDialogEdit()">Editar</button>-->
+        <!--<div class="row mt-1">
+            <div class="col-6">
+              <button type="submit" class="btn btn-block btn-primary waves-effect waves-light">Cancelar</button>
+            </div>
+            <div class="col-6">
+              <button type="submit" class="btn btn-block btn-primary waves-effect waves-light m-r-10">Guardar</button>
+            </div>
+          </div>-->
+        <!--</div>-->
+    </div>
+  </div>
+</div>
