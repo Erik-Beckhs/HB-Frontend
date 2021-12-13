@@ -22,6 +22,7 @@ export class AuctionComponent implements OnInit, OnExit {
   idQuot:string='';
   idAnswer:any = 10;
   idSupplier:string='';
+  loading:boolean = true;
 
   selValue:string='ptje';
 
@@ -45,7 +46,6 @@ export class AuctionComponent implements OnInit, OnExit {
     private _contact:ContactsService,
     private _auction:AuctionService
   ) { 
-
     this.idQuot = this._quotation.idQuot;
     this.idSupplier = this._contact.contact.suppliers.id
     this.getAnswer();
@@ -54,6 +54,8 @@ export class AuctionComponent implements OnInit, OnExit {
   }
 
   ngOnInit(): void {
+    this.loading = true;
+
     this.loadProducts()
 
     this._product.notificacion.subscribe(res=>
@@ -144,9 +146,9 @@ export class AuctionComponent implements OnInit, OnExit {
           }
         })
       }
-
       this.dataSource = new MatTableDataSource(this.products);
       this.dataSource.paginator = this.paginator;
+      this.loading = false;
     })
   }
 

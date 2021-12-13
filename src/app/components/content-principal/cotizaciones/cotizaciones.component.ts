@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
 
 import swal from 'sweetalert';
+import { SpinnerService } from 'src/app/services/others/spinner.service';
 
 @Component({
   selector: 'app-cotizaciones',
@@ -17,7 +18,8 @@ import swal from 'sweetalert';
 })
 
 export class CotizacionesComponent implements OnInit {
-  loading:boolean=false;
+  loading:boolean = true;
+  
   dataSource:any;
   answers:any[]=[];
   quotation!:QuotationInterface;
@@ -47,12 +49,15 @@ export class CotizacionesComponent implements OnInit {
     private _applicant:ApplicantService,
     private _contact:ContactsService,
     private router:Router,
-    private spinner: NgxSpinnerService
+    //private _spinner:SpinnerService
+    //private spinner: NgxSpinnerService
     ) { 
      
   }
 
   ngOnInit(){
+    this.loading = true
+
     this.contact=this._contact.contact;
     this.loadQuotations();
     this.dataSource = new MatTableDataSource(this.arrayList);
@@ -62,7 +67,7 @@ export class CotizacionesComponent implements OnInit {
 
   loadQuotations(){
     //this.loading=true
-    this.spinner.show(undefined, {type:'ball-spin-clockwise'});
+    //this.spinner.show(undefined, {type:'ball-spin-clockwise'});
 
     this._supplier.getQuotationsByIdSupplier(this.contact.suppliers.id)
     .subscribe(
@@ -107,7 +112,7 @@ export class CotizacionesComponent implements OnInit {
             })
           })
         }
-        this.spinner.hide();
+        this.loading = false;
       }
     ) 
   }

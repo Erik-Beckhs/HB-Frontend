@@ -15,6 +15,9 @@
             </div>
         </div>
         <hr>
+     <app-spinner *ngIf="loading"></app-spinner>
+
+      <div *ngIf="!loading">
         <div *ngIf="products.length == 0">
             <div class="alert alert-warning txt-15" role="alert">
                No existen productos
@@ -95,13 +98,15 @@
             </div>
 
         </div>
+      </div>
 
       </div>
 
       <div>
         <span class="h6 font-weight-bold"><i class="fa fa-bar-chart-o"></i> Cuadro competitivo</span>
         <hr>
-        <div class="mx-2" style="width:1000px; height:500px;">
+        <app-spinner *ngIf="loading"></app-spinner>
+        <div class="mx-2" style="width:1000px; height:500px;" *ngIf="!loading">
             <app-auction-chart></app-auction-chart>
         </div>
     </div>
