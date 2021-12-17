@@ -1,15 +1,19 @@
 .page-container{
   background-color: #f4f6f9;
+  position: fixed;
   background-size: cover;
   height: 100%;
   width: 100%;
-  padding: 1% 0;
+  left:0;
+  top:0;
+  margin: 30px auto;
 }
 
 mat-card{
   border-radius: 10px;
   margin:30px auto;
-  width:60%;
+  max-width:60%;
+  min-width:500px;
   padding:0px !important;
 }
 
@@ -27,10 +31,6 @@ mat-card{
 
   }
 
-#img-login{
-  height:100%;
-  margin:0px !important;
-}
 
 .d-flex{
   display: flex;
@@ -43,4 +43,52 @@ mat-card{
 .active{
   background-color: #3f51b5;
   color:#fff;
+}
+
+.login{
+  /*height: 570px;*/
+  overflow: hidden;
+}
+
+.card-login{
+  display: flex;
+  flex-direction: row;
+}
+
+.card-img{
+  padding:0;
+  overflow: hidden;
+  /*margin:10px auto;
+  border-radius:5px;
+  border: 1px solid #999;
+  padding:13px;
+  width:220px;
+  height:220px;
+  background-size: 100% 100%;
+  background-repeat:no-repeat;
+  background:url(../../assets/images/login.png);
+  background-size: cover;*/
+}
+
+
+.img-login{
+  min-height: 581px;
+  /*height: 100vh;*/
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  width:100%;
+  /*background-size:cover;*/
+  
+}
+
+@media screen and (max-width:1051px){
+  .img-login{
+    height: 600px;
+  }
+}
+
+@media screen and (max-width:776px){
+  .img-login{
+    height: 980px;
+  }
 }

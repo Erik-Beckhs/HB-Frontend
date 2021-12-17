@@ -1,11 +1,14 @@
 <div class="page-container">
   
-<mat-card class="mat-elevation-z8">
-  <mat-grid-list cols="12" rowHeight="590px">
-    <mat-grid-tile colspan="4">
-      <img id="img-login" mat-card-image src="../../assets/images/login.png" class="img-fluid rounded-start" alt="...">
-    </mat-grid-tile>
-    <mat-grid-tile colspan="8">
+  <mat-card class="mat-elevation-z8 login">
+   <!--<mat-grid-list cols="12" class="card-login" rowHeight="590px">-->
+    <div class="row" class="card-login">
+
+    <div class="col-md-4 col-sm-6 col-lg-4 card-img">
+      <img src="../../assets/images/login.png" class="img-login img-fluid">
+    </div>
+      
+    <div class="col-md-8 col-sm-6 col-lg-8 card-info">
       <mat-card-content class="container px-5 pt-4">
         <div class="row" class="d-flex justify-content-end">
             <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
@@ -13,10 +16,13 @@
               <mat-button-toggle routerLinkActive="active" routerLink="register" >Registrarse</mat-button-toggle>
             </mat-button-toggle-group>
         </div>
-          <router-outlet></router-outlet>
+          <div>
+            <router-outlet></router-outlet>
+          </div>
       </mat-card-content>
-    </mat-grid-tile>
-  </mat-grid-list>
-</mat-card>
-
+    </div>
+      
+  </div>
+    <!--</mat-grid-list>-->
+  </mat-card>
 </div>

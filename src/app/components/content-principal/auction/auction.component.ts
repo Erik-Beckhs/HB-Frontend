@@ -24,6 +24,8 @@ export class AuctionComponent implements OnInit, OnExit {
   idSupplier:string='';
   loading:boolean = true;
 
+  color:any
+
   selValue:string='ptje';
 
   select:any[]=[
@@ -63,6 +65,12 @@ export class AuctionComponent implements OnInit, OnExit {
         this.loadProducts();
       }
     )
+
+    this.color = {
+      a:this.generarNumero(),
+      b:this.generarNumero(),
+      c:this.generarNumero(),
+    }
   }
 
   onExit(){
@@ -363,7 +371,14 @@ export class AuctionComponent implements OnInit, OnExit {
   //   //return;
   // }
 
-  test(){
-    
+  //funciones para generar color RGB ======
+  generarNumero(){
+    return (Math.random()*255).toFixed(0);
   }
+  
+//  colorRGB(){
+//     var color = "("+this.generarNumero(255)+"," + this.generarNumero(255) + "," + this.generarNumero(255) +")";
+//     return "rgba" + color;
+//   }
+  //=======================================
 }

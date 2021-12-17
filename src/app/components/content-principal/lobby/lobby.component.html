@@ -3,20 +3,20 @@
         <div class="row">
             <span class="text-primary h6">Cotización Online - Subasta Inversa Cotizacion 567</span>  <span class="txt-13 text-muted">  Activo</span>
         </div>
-        <div class="row mt-3">
-            <div class="col-8">
+        <div class="row mt-3 d-flex">
+            <div class="img-slider">
 
                 <!--<img src="../../../../assets/images/subasta1.png" class="img img-fluid">-->
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                       <div class="carousel-item active">
-                        <img src="../../../../assets/images/subasta1.png" class="d-block w-100">
+                        <img src="../../../../assets/images/subasta1.png" class="img-carousel d-block w-100">
                       </div>
                       <div class="carousel-item">
-                        <img src="../../../../assets/images/hansa-img.jpg" class="d-block w-100">
+                        <img src="../../../../assets/images/hansa-img.jpg" class="img-carousel d-block w-100">
                       </div>
                       <div class="carousel-item">
-                        <img src="../../../../assets/images/FONDO-HANSA_P2.jpg" class="d-block w-100">
+                        <img src="../../../../assets/images/FONDO-HANSA_P2.jpg" class="img-carousel d-block w-100">
                       </div>
                     </div>
                    <button style="border:none;" class="carousel-control-prev cursor" type="button" data-target="#carouselExampleControls" data-slide="prev">
@@ -27,26 +27,34 @@
                       <span class="carousel-control-next-icon" aria-hidden="true"></span>
                       <span class="sr-only">Next</span>
                     </button>
-                  </div>
+                </div>
 
             </div>
-            <div class="col-4">
+            <div class="validity">
+
                 <div class="px-2">
                     <div class="row h6 font-weight-bold px-3" style="color:#02497d;">
                         INICIO SUBASTA
                     </div>
                     <div class="row px-3" style="min-height: 100px;">
                         <div class="col-6 d-flex align-items-center justify-content-center" style="background-color: #02497d;">
-                            <div style="position: relative;">
+                            <!--<div style="position: relative;">
                                 <div class="text-center"><span class="h6 text-white">{{monthStart | titlecase}}</span> </div>
                                 <div class="text-center"><span class="h5 text-white"><i class="fa fa-calendar-o fa-2x"></i> <span style="position: absolute; left:35%; top:62%;">{{dayStart}}</span> </span> </div>
+                            </div>-->
+                            <div class="month text-white">
+                                <div class="h6">{{monthStart | titlecase}}</div>
+                                <div style="position:relative;">
+                                    <i class="fa fa-calendar-o fa-2x"></i>
+                                    <span style="position:absolute; left:20%; top:20%;">{{dayStart}}</span>
+                                </div>
                             </div>
                             
                         </div>
-                        <div class="col-6 d-flex align-items-center justify-content-center" style="background-color: #6ab6ec;">
-                            <div>
-                                <div class="text-center"><span class="h6 text-white">Año</span> </div>
-                                <div><span class="h4 text-white text-center">{{yearStart}}</span> </div>
+                        <div class="col-6" style="background-color: #6ab6ec;">
+                            <div class="year">
+                                <div class="h6 text-white year-tag">Año </div>
+                                <div class="h4 text-white year-bid">{{yearStart}} </div>
                             </div>
                         </div>
                     </div>
@@ -62,6 +70,7 @@
                         <button class="form-control font-weight-bold h5 text-center pointer-auto" mat-raised-button>{{time}}</button>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

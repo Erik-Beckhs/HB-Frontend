@@ -17,8 +17,11 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { DialogsModule } from "../dialogs/dialogs.module";
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { environment } from "src/environments/environment";
 
-const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
+const config: SocketIoConfig = { 
+    url: environment.wsUrl, options: {} 
+};
 
 @NgModule({
     declarations:[

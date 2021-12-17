@@ -24,7 +24,7 @@
         <div *ngIf="answers.length > 0">
             <div *ngIf="!loading" class="col-12">
               <div class="card">
-                <div class="card-body">
+                <div class="card-body d-flex justify-content-start" style="flex-direction: column;">
                   <table  mat-table [dataSource]="dataSource" matSort>
   
                     <ng-container matColumnDef="position">
@@ -75,6 +75,7 @@
                                  showFirstLastButtons 
                                  aria-label="Select page of periodic elements">
                   </mat-paginator>
+
                 </div>
               </div>
             </div>

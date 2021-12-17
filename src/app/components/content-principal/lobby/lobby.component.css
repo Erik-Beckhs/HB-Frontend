@@ -1,3 +1,7 @@
+*{
+    box-sizing: border-box;
+}
+
 .carousel-control-next{
     height:50px;
     width:100px;
@@ -10,4 +14,42 @@
     width:100px;
     top: 45%;
     background-color:#000;
+}
+
+
+.img-carousel{
+    min-height:430px;
+}
+
+/*contenido div izquierda*/
+.img-slider{
+    flex:8;
+}
+
+.validity{
+    flex:4;
+    margin: 0 20px;
+}
+
+/**/
+.year, .month{
+    display:flex;
+    flex-direction: column;
+    height:100%;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+@media screen and (max-width:1020px){
+    .img-slider{
+        flex:6;
+    }
+    
+    .validity{
+        flex:6;
+        margin: 20px 0;
+    }
+    
 }

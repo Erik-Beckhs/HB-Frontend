@@ -2,6 +2,10 @@
     color:#0dcaf0;
 }
 
+.side{
+    margin-left:14px;
+}
+
 .aside-info{
     min-height:560px;
     /*background-color:#0dcaf0;*/
@@ -28,3 +32,46 @@
 .aside-info textarea:focus{
     background-color: #79c5e7;
 }
+
+.start-side, .end-side{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height:100%;
+}
+
+.day-start{
+    position: absolute;
+    left:60%;
+    top:30%;
+}
+
+.vigency{
+    display:flex;
+    /*flex-direction: row;*/
+    flex-wrap: wrap;
+    /*border:1px solid #000;*/
+}
+.date-box{
+    flex:5;
+    min-height: 80px; 
+    min-width:130px;
+}
+
+.date-start{ 
+ background-color: rgb(7, 133, 133);
+}
+
+.date-end{
+ background-color: rgb(211, 250, 250);
+ color:#000;
+}
+
+@media only screen and (min-width:620px) and (max-width:765px){
+    .day-start{
+        left:70%;
+    }
+}
+
+

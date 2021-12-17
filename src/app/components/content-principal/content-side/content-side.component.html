@@ -1,4 +1,4 @@
-<div>
+<div class="side">
     <div class="row animated fadeIn">
         <div class="col-md-8 px-5 py-4">
             <router-outlet></router-outlet>
@@ -48,8 +48,8 @@
             </div>
 
             
-            <div class="px-3">
-                <div class="row">
+            <div>
+                <div class="row  px-3">
                     <label class="h6">Plazo</label>
                 </div>
 
@@ -66,14 +66,15 @@
                     </div>
                 </div>-->
                 
-                <div class="row">
-                    <div class="col-6 d-flex align-items-center justify-content-center" style="min-height: 50px; background-color: rgb(7, 133, 133);">
-                        <div class="row">
+                <div class="vigency">
+
+                    <div class="date-start date-box">
+                        <div class="start-side">
                             <div class="col-5 text-right" style="position:relative;">
                                 <i class="fa fa-calendar-o fa-2x"></i>
-                                <span class="font-weight-bold" style="position: absolute; left:37%; top:30%;">{{dayStart}}</span>
+                                <span class="font-weight-bold day-start">{{dayStart}}</span>
                             </div>
-                            <div class="col-7 txt-15 font-weight-bold">
+                            <div class="col-7 fs-14 font-weight-bold">
                                 <div >
                                    {{ monthStart | titlecase }}
                                 </div>
@@ -83,13 +84,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 text-dark d-flex align-items-center justify-content-center" style="min-height: 60px; background-color: rgb(211, 250, 250);">
-                        <div class="row">
-                            <div class="col-5 text-center" style="position:relative;">
-                                <i class="fa fa-calendar-o fa-2x"></i>
-                                <span class="font-weight-bold" style="position: absolute; left:36%; top:30%;">{{dayEnd}}</span>
+
+                    <div class="date-end date-box">
+                        <div class="end-side">
+                            <div class="col-5 text-right">
+                                <div style="position:relative;">
+                                    <i class="fa fa-calendar-o fa-2x"></i>
+                                    <!--<div style="width:30px; height:30px; margin:0 auto; background-color: red; color:blue; position:absolute; left:20%; top:10%;">
+                                        <span class="font-weight-bold text-right" >{{dayEnd}}</span>
+                                    </div>-->
+                                    <span class="font-weight-bold" style="position:absolute; left:28%; top:30%;" >{{dayEnd}}</span>
+                                </div>
                             </div>
-                            <div class="col-7 txt-15 font-weight-bold">
+                            <div class="col-7 fs-14 font-weight-bold">
                                 <div>
                                    {{ monthEnd | titlecase }}
                                 </div>
@@ -99,6 +106,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
 
             </div>

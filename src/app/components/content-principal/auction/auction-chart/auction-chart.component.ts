@@ -3,8 +3,9 @@ import { ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { Subscription } from 'rxjs';
 import { ContactInterface } from 'src/app/models/contact.interface';
+import { WebsocketService } from 'src/app/services/others/websocket.service';
 import { AuctionService, ContactsService, QuotationService } from 'src/app/services/service.index';
-import { Socket } from 'ngx-socket-io';
+//import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-auction-chart',
@@ -12,6 +13,7 @@ import { Socket } from 'ngx-socket-io';
   styleUrls: ['./auction-chart.component.css']
 })
 export class AuctionChartComponent implements OnInit{
+  @Input() color:any
   idAnswer!:string
 
   idQuot:any;
@@ -125,7 +127,8 @@ export class AuctionChartComponent implements OnInit{
     private _auction:AuctionService,
     private _contact:ContactsService,
     private _quotation:QuotationService,
-    private socket: Socket
+    //private socket: Socket
+    public _webSocket:WebsocketService
     ){
     //this.totals = [ 65, 30, 45 ];
     //this.supplier = 'Bosch';
@@ -136,17 +139,34 @@ export class AuctionChartComponent implements OnInit{
   }
 
   ngOnInit():void{
+
     //this.getAuctions()
-    this.getAnswer()
+    this.getAnswer();
 
     this.suscription = this._auction._refresh$.subscribe( () => {
-      this.getAuctions()
+      this.getAuctions();
     })
 
-    this.socket.on('oferta', (point:any) => {
+    this._webSocket.socket.on('oferta', (point:any) => {
+      //this.socket.on('oferta', (point:any)=>{
       console.log(point);
       this.getAuctions();
     })
+
+    //mostrar cuando se han conectado
+    this._webSocket.socket.on('conectado', (point:any) => {
+      //this.socket.on('oferta', (point:any)=>{
+      console.log(point);
+      //this.getAuctions();
+    })
+
+
+    // this._webSocket.socket.on('connect', (point:any) => {
+    //   //this.socket.on('oferta', (point:any)=>{
+    //   console.log('alguien se conectó'+point);
+    //   //this.getAuctions();
+    // })
+
   }
 
   getAnswer(){
@@ -184,12 +204,12 @@ export class AuctionChartComponent implements OnInit{
           {
             data: this.totals, //totales
             label: this.supplier, //nombre de proveedor
-            backgroundColor: 'rgba(148,159,177,0.2)',
-            borderColor: 'rgba(148,159,177,1)',
-            pointBackgroundColor: 'rgba(148,159,177,1)',
+            backgroundColor: `rgba(${this.color.a}, ${this.color.b}, ${this.color.c} ,0.2)`,
+            borderColor: `rgba(${this.color.a}, ${this.color.b}, ${this.color.c} ,1)`,
+            pointBackgroundColor: `rgba(${this.color.a}, ${this.color.b}, ${this.color.c} ,1)`,
             pointBorderColor: '#fff',
             pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+            pointHoverBorderColor: `rgba(${this.color.a}, ${this.color.b}, ${this.color.c} , 0.8)`,
             fill: 'origin',
           }
         ],
@@ -197,6 +217,7 @@ export class AuctionChartComponent implements OnInit{
       };
     })
   }
+
 
   // events
   // public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {

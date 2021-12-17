@@ -1,12 +1,18 @@
 .cot-list{
   padding:20px;
 }
+
 table {
     /*height: calc(50vh - 100px);*/
     /*height:50%;*/
     width:100%;
+
    /* border-radius:10px;*/
-   margin:0 auto;
+   /*margin:0 auto;*/
+  }
+
+  mat-paginator{
+    width:100%;
   }
 
   th{
@@ -36,4 +42,10 @@ table {
 
 .font-weight-500{
   font-weight: 500;
+}
+
+@media screen and (max-width:1024px){
+  table{
+    width:100px;
+  }
 }
