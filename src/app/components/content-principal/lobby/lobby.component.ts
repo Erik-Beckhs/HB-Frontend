@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { QuotationInterface } from 'src/app/models/quotation.interface';
-import { QuotationService } from 'src/app/services/service.index';
+import { AuctionService, QuotationService } from 'src/app/services/service.index';
 //import * as countdown from 'countdown';
 
 @Component({
@@ -26,11 +26,13 @@ export class LobbyComponent implements OnInit {
 
   constructor(
     private _quotation:QuotationService,
-    private router:Router
+    private router:Router,
+    //private _rules:AuctionService
     ) { }
 
   ngOnInit(): void {
     this.idQuot=this._quotation.idQuot;
+    //this.start = new Date();
 
     this._quotation.getQuotationById(this.idQuot)
     .subscribe((res:any)=>
@@ -60,7 +62,14 @@ export class LobbyComponent implements OnInit {
     this.time = `${days} dias ${hours} hrs ${mins} mins ${seconds} segs`;
     if(this.difference < 0){
       clearInterval(this.x);
-      this.router.navigate(['/cot-principal/content-side/', this.idQuot, 'auction']);
+      this.router.navigate(['/cot-principal/content-side/', this.idQuot, 'content-info']);
+      //this.router.navigate(['/cot-principal/content-side/', this.idQuot, 'auction']);
+      //this._rules.showRules = true;
     }
   });
+
+  jump(){
+    this.router.navigate(['/cot-principal/content-side/', this.idQuot, 'content-info']);
+    //this.router.navigate(['/cot-principal/content-side/', this.idQuot, 'auction']);
+  }
 }

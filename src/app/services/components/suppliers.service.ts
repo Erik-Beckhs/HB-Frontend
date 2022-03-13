@@ -81,4 +81,32 @@ export class SuppliersService {
           return res;
         }));
   }
+
+  getSuppliers(){
+    let url = `${URL_SERVICE}/api/suppliers`;
+    return this.http.get(url);
+  }
+
+  countAnswerByIdSupplier(idSupplier:any){
+    let url = `${URL_SERVICE}/api/answers/count?where={"idSupplier":"${idSupplier}"}`;
+    return this.http.get(url).pipe(
+      map((res:any)=>{return res.count})
+    )
+  }
+
+  countAnswerWinnerByIdSupplier(idSupplier:string){
+    //estado 3 es asignado a proveedores que ganaron la cotizacion
+    //let state = 3;
+    let url = `${URL_SERVICE}/api/answers/CantidadCotizacionesGanadas?idSupplier=${idSupplier}`;
+    //let url = `${URL_SERVICE}/api/answers/count?where={"idSupplier":"${idSupplier}" , "state":${state}}`;
+    return this.http.get(url).pipe(
+      map((res:any)=>
+        {
+          return res[0].count
+        }
+        )
+    )
+  }
+  
+
 }

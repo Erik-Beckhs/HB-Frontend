@@ -13,6 +13,9 @@ export class QuotationService {
 
   constructor(private http:HttpClient) { 
     this.idQuot = localStorage.getItem('idQuot');
+
+    console.log('vamo a actualizar');
+    //this.updateExpiredQuotations();
   }
   headers:HttpHeaders= new HttpHeaders({
     'Content-type' : 'application/json'
@@ -73,6 +76,36 @@ export class QuotationService {
   //obtiene los productos de una cotizacion
   getProductsAssocQuotation(idQuot:any){
     let url = `${URL_SERVICE}/api/quotations/${idQuot}/productServices`;
+    return this.http.get(url);
+  }
+
+  getRulesByIdQuotation(idQuot:any){
+    let url = `${URL_SERVICE}/api/quotations/${idQuot}/auctionRules`;
+    return this.http.get(url);
+  }
+
+  countAnswersProdByIdAnswer(idAnswer:any){
+    let url = `${URL_SERVICE}/api/answers/${idAnswer}/answerProdServs/count`;
+    return this.http.get(url);
+  }
+
+  deleteAnswersProdByIdAnswer(idAnswer:any){
+    let url = `${URL_SERVICE}/api/answers/${idAnswer}/answerProdServs`;
+    return this.http.delete(url);
+  }
+
+  deleteBidByIdAnswer(idAnswer:any){
+    let url = `${URL_SERVICE}/api/answers/${idAnswer}/bidAnswers`;
+    return this.http.delete(url);
+  }
+
+  getQuotationListBySupplier(idSupplier:any){
+    let url = `${URL_SERVICE}/api/quotations/ListadoDeCotizacionesPorProveedor?idSupplier=${idSupplier}`;
+    return this.http.get(url);
+  }
+
+  getQuotationGral(){
+    let url = `${URL_SERVICE}/api/quotations/ListadoDeCotizaciones`;
     return this.http.get(url);
   }
 }

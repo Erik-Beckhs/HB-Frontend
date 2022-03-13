@@ -8,3 +8,7 @@ table th{
     font-size:14px;
     min-width:50px;
 }
+
+.countdown{
+    position:fixed; right:20px; top:80px; z-index:9999;
+}

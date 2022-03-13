@@ -11,19 +11,22 @@ import { URL_SERVICE } from 'src/app/config/config';
 import { throwError } from 'rxjs';
 
 import swal from 'sweetalert';
+//import { AnyMxRecord } from 'dns';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
   //user!:any
   contact!:any
   token!:any
 
   constructor(private http:HttpClient) { 
-    this.token=this.getToken()
+    this.token = this.getToken()
     //console.log('token:'+this.token)
   }
+
   headers:HttpHeaders= new HttpHeaders({
     'Content-type': 'application/json'
   });
@@ -145,5 +148,15 @@ export class AuthService {
   updateUser(id:any, user:any){
     let url=`${URL_SERVICE}/api/Users/${id}?access_token=${this.token}`
     return this.http.patch(url, user)
+  }
+
+  changePassword(valPassword:any, token:any){
+    let url = `${URL_SERVICE}/api/Users/change-password?access_token=${token}`;
+    return this.http.post(url, valPassword)
+    .pipe(catchError((err:HttpErrorResponse)=>{
+      //console.log(err.error);
+      swal("HANSA Business", "Su contraseña actual no es la correcta, intente de nuevo", "error");
+      return throwError(err);
+    }))
   }
 }

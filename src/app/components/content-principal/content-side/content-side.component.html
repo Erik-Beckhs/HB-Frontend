@@ -4,11 +4,13 @@
             <router-outlet></router-outlet>
         </div>
         <div class="col-md-4 aside-info py-4 px-4">
+            <h5 class="text-white fw-bold">{{quotation.name}}</h5>
+            <hr>
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="h6">Fecha de Presentación</label>
-                        <input type="text" class="form-control mt-1 txt-15" [ngModel]="date | date:'short'" readOnly >
+                        <input type="text" class="form-control mt-1 txt-15" [ngModel]="date | date:'medium'" readOnly >
                     </div>
                 </div>
             </div>
@@ -106,6 +108,12 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row d-flex justify-content-center" style="width:100%;">
+                        <div class="mt-4" *ngIf="quotation.auction">
+                            <button [routerLink]="['/cot-principal']" class="btn btn-danger scale"><i class="fa fa-home"></i> Abandonar Subasta</button>
+                        </div>
+                    </div>
+
 
                 </div>
 

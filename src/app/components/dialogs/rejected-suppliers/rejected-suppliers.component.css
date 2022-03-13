@@ -1,0 +1,60 @@
+.rejected{
+    padding:5px;
+  }
+  
+  table {
+      /*height: calc(50vh - 100px);*/
+      /*height:50%;*/
+      width:100%;
+  
+     /* border-radius:10px;*/
+     /*margin:0 auto;*/
+    }
+  
+    mat-paginator{
+      width:100%;
+    }
+  
+    th{
+        background-color: #004a9f;
+        color:#fff;
+        font-size:14px;
+        min-width:50px;
+    }
+    
+    td{
+      font-size:13px;
+    }
+  
+    .mat-sort-header-arrow {
+      color: #fff !important;
+    }
+  
+    mat-divider {
+      margin-bottom: 12px;
+      background-color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .rejected a{
+    cursor:pointer;
+    color:#0000ff;
+  }
+  
+  .font-weight-500{
+    font-weight: 500;
+  }
+
+  mat-form-field{
+    width:100%;
+    margin-top:0px;
+  }
+
+  hr{
+    margin-bottom:0px;
+  }
+  
+  @media screen and (max-width:1024px){
+    table{
+      width:100px;
+    }
+  }

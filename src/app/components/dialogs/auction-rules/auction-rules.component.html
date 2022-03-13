@@ -1,0 +1,20 @@
+<div class="p-3" >
+    <div class="header-dialog">
+        <h3><i class="fa fa-sellsy"></i> Subasta Inversa - {{data.name}}</h3>
+    </div>
+    <hr>
+    <div class="body-dialog">
+        <p>Bienvenido a Subasta Inversa <span style="font-weight: 500;">{{data.name}}</span>, es importante que tome en cuenta las siguientes reglas de mejora para participar en nuestra subasta.</p>
+        <ol>
+            <li>{{data.drawTotal == true? 'Se permite empates en primer lugar' : 'No se permiten empates en primer lugar'}}</li>
+            <li>El valor total de la mejora debe disminuir en al menos {{data.valueImproveTotal}} {{data.typeImproveTotal == 'monto' ? 'unidades de '+data.money:'%'}} en cada oferta que realice</li>
+            <li>El tiempo entre oferta y oferta que realice es de {{data.timeBeforeNewBid}} minutos </li>
+        </ol>
+    <p>Le deseamos la mejor de las suertes y esperamos poder trabajar con usted.</p>
+    </div>
+    <hr>
+    <div class="footer-dialog">
+        <button class="btn btn-danger text-white scale" mat-dialog-close (click)="return()">Salir de la subasta</button>
+        <button class="btn btn-info text-white scale" mat-dialog-close>Continuar</button>
+    </div>
+</div>

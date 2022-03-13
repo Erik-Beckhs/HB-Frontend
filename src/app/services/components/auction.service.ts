@@ -9,6 +9,8 @@ import { URL_SERVICE } from 'src/app/config/config';
 })
 export class AuctionService {
   public _refresh$ = new Subject<void>()
+
+  //public showRules:boolean = false;
   
   constructor(private http:HttpClient) { }
 

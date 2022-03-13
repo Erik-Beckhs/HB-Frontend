@@ -1,0 +1,34 @@
+<div class="p-3 payment">
+    <i class="fa fa-dollar"></i><span class="h5">Pagos</span>
+    <br>
+    <span class="h5">Orden de Compra <span class="fw-bold">{{data.name}}</span> </span>
+    <hr>
+    <div class="mat-elevation-z8">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Fecha</th>
+                    <th>Tipo de Pago</th>
+                    <th>%</th>
+                    <th>Monto</th>
+                    <th>Moneda</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of pays; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>{{item.date | date:'short'}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.percent}}</td>
+                    <td>{{item.amount}}</td>
+                    <td>{{item.money | moneySupplier}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close class="btn btn-info scale text-white">Cerrar</button>
+    </mat-dialog-actions>
+</div>

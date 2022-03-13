@@ -1,114 +1,237 @@
 <div>
-    <div class="my-2 productos">
-        <div class="row">
-            <div class="col-6">
-                <div style="position:absolute; bottom:0px;">
-                    <span class="h6 font-weight-bold"><i class="fa fa-shopping-cart"></i> Productos / Servicios</span>
-                    <br>
-                    <span class="fs-12 pt-2">Vigencia de la oferta en días </span><input [disabled]="products.length == 0" style="height:25px; border-radius:5px; width:50px;" class="ml-2" type="number" min="0">
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="row d-flex justify-content-end">
-                    <app-countdown></app-countdown>
-                </div>
-            </div>
-        </div>
-        <hr>
-     <app-spinner *ngIf="loading"></app-spinner>
-
-      <div *ngIf="!loading">
-        <div *ngIf="products.length == 0">
-            <div class="alert alert-warning txt-15" role="alert">
-               No existen productos
-            </div>
-            <div class="text-right">
-                <button mat-raised-button (click)="volver()" color="secondary" class="scale">Volver</button>
-            </div>
-        </div>
-
-        <div class="py-1 px-4" *ngIf="products.length > 0">
-            <div class="scroll">
-                <table mat-table [dataSource]="dataSource">
-              
-                  <!-- Position Column -->
-                  <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef class="text-center"> Nombre </th>
-                    <td mat-cell *matCellDef="let element"> {{element.tradename | titlecase}} </td>
-                  </ng-container>
-              
-                  <!-- Name Column -->
-                  <ng-container matColumnDef="amount">
-                    <th mat-header-cell *matHeaderCellDef class="text-center"> Cantidad </th>
-                    <td mat-cell *matCellDef="let element" class="text-center"> {{element.amount}} </td>
-                  </ng-container>
-              
-                  <!-- Weight Column -->
-                  <ng-container matColumnDef="unitPriceOffer">
-                    <th mat-header-cell *matHeaderCellDef class="text-center"> Mi Precio </th>
-                    <td mat-cell *matCellDef="let element" class="text-center"> 
-                        <input min="0" (change)="changePrice(element)" (keyup)="changePrice(element)" type="number" class="form-control w100" name="unitprice" [(ngModel)]="element.priceDiscount">
-                    </td>                  
-                  </ng-container>
-              
-                  <!-- Symbol Column -->
-                  <ng-container matColumnDef="discount">
-                    <th mat-header-cell *matHeaderCellDef class="text-center"> Descuento </th>
-                    <td mat-cell *matCellDef="let element" class="text-center"> 
-                        <div class="">
-                            <input type="number" (change)="changeDiscount(element)" min="0" [(ngModel)]="element.discount" style="width:80px;" class="form-control" name="unitprice">
-                            <select (change)="changeDiscount(element)" class="form-control size-10" style="width:60px;" [(ngModel)]="element.typeDiscount" name="valorSelect">
-                                <option *ngFor="let sel of select" [value]="sel.value">{{sel.name}}</option>
-                            </select>
-                        </div>
-                    </td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="subTotalOffer" >
-                    <th mat-header-cell *matHeaderCellDef class="text-center"> Subtotal </th>
-                    <td mat-cell *matCellDef="let element" class="text-center">{{element.amount * element.priceDiscount | number:'1.2-3'}}</td>
-                  </ng-container>
-
-                  <ng-container matColumnDef="edit" >
-                    <th mat-header-cell *matHeaderCellDef class="text-center"> Más información </th>
-                    <td mat-cell *matCellDef="let element" class="text-center">
-                        <button (click)="responseProduct(element)" title="Responder" type="button" class="btn bg-cyan btn-circle text-white scale">
-                            <i class="fa fa-plus"></i> 
-                        </button>
-                     </td>
-                  </ng-container>
-              
-                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-              
-                <mat-paginator [pageSizeOptions]="[5]"
-                               showFirstLastButtons 
-                               aria-label="Select page of periodic elements">
-                </mat-paginator>
-            </div>
-
-            <div class="text-right" style="min-width:150px;">
-                <div class="row d-flex justify-content-end">
-                    <mat-card style="width: 300px;">
-                        <h4 class="text-info font-weight-bold text-center">Total: {{total | number:'1.2-3'}} {{money}} </h4>
-                        <button (click)="bid()" mat-raised-button color="secondary" class="scale form-control">Enviar puja</button>
-                    </mat-card>
-                </div>
-            </div>
-
-        </div>
-      </div>
-
-      </div>
-
-      <div>
-        <span class="h6 font-weight-bold"><i class="fa fa-bar-chart-o"></i> Cuadro competitivo</span>
-        <hr>
-        <app-spinner *ngIf="loading"></app-spinner>
-        <div class="mx-2" style="width:1000px; height:500px;" *ngIf="!loading">
-            <app-auction-chart [color]="color"></app-auction-chart>
-        </div>
+    <div class="row countdown">
+        <app-countdown></app-countdown>
     </div>
-      
+
+    <mat-stepper labelPosition="bottom" #stepper>
+        <mat-step>
+            <ng-template matStepLabel>Productos / Servicios</ng-template>
+            
+            <div class="products-dashboard">
+                <div class="my-2 productos">
+                    <div class="row">
+                      <div>
+                          <span class="h6 font-weight-bold"><i class="fa fa-shopping-cart"></i> Productos / Servicios</span>
+                          <br>
+                          <span class="fs-12 pt-2">Vigencia de la oferta en días </span><input [disabled]="products.length == 0" style="height:25px; border-radius:5px; width:50px;" class="ml-2" type="number" min="0" [(ngModel)]="validity" >
+                      </div>
+                    </div>
+                    <hr>
+                <app-spinner *ngIf="loading"></app-spinner>
+    
+                <div *ngIf="!loading">
+                    <div *ngIf="products.length == 0">
+                        <div class="alert alert-warning txt-15" role="alert">
+                        No existen productos
+                        </div>
+                        <div class="text-right">
+                            <button mat-raised-button (click)="volver()" color="secondary" class="scale">Volver</button>
+                        </div>
+                    </div>
+    
+                    <div class="py-1 px-4" *ngIf="products.length > 0">
+                        <div class="scroll-y-300">
+                            <table mat-table [dataSource]="dataSource">
+                        
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="name">
+                                <th mat-header-cell *matHeaderCellDef class="text-center"> Nombre </th>
+                                <td mat-cell *matCellDef="let element"> {{element.tradename | titlecase}} </td>
+                            </ng-container>
+                        
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="amount">
+                                <th mat-header-cell *matHeaderCellDef class="text-center"> Cantidad </th>
+                                <td mat-cell *matCellDef="let element" class="text-center"> {{element.amount}} </td>
+                            </ng-container>
+                        
+                            <!-- Weight Column -->
+                            <ng-container matColumnDef="unitPriceOffer">
+                                <th mat-header-cell *matHeaderCellDef class="text-center"> Mi Precio </th>
+                                <td mat-cell *matCellDef="let element" class="text-center"> 
+                                    <input min="0" (change)="changePrice(element)" (keyup)="changePrice(element)" type="number" class="form-control w100" name="unitprice" [(ngModel)]="element.priceDiscount">
+                                </td>                  
+                            </ng-container>
+                        
+                            <!-- Symbol Column -->
+                            <ng-container matColumnDef="discount">
+                                <th mat-header-cell *matHeaderCellDef class="text-center"> Descuento </th>
+                                <td mat-cell *matCellDef="let element" class="text-center"> 
+                                    <div class="">
+                                        <input type="number" (change)="changeDiscount(element)" min="0" [(ngModel)]="element.discount" style="width:80px;" class="form-control" name="unitprice">
+                                        <select (change)="changeDiscount(element)" class="form-control fs-10" style="width:60px;" [(ngModel)]="element.typeDiscount" name="valorSelect">
+                                            <option *ngFor="let sel of select" [value]="sel.value">{{sel.name}}</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="subTotalOffer" >
+                                <th mat-header-cell *matHeaderCellDef class="text-center"> Subtotal </th>
+                                <td mat-cell *matCellDef="let element" class="text-center">{{element.amount * element.priceDiscount | number:'1.2-3'}}</td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="edit" >
+                                <th mat-header-cell *matHeaderCellDef class="text-center"> Más información </th>
+                                <td mat-cell *matCellDef="let element" class="text-center">
+                                    <button (click)="responseProduct(element)" title="Responder" type="button" class="btn bg-cyan btn-circle text-white scale">
+                                        <i class="fa fa-plus"></i> 
+                                    </button>
+                                </td>
+                            </ng-container>
+                        
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                        
+                            <mat-paginator [pageSizeOptions]="[5]"
+                                        showFirstLastButtons 
+                                        aria-label="Select page of periodic elements">
+                            </mat-paginator>
+                        </div>
+    
+    
+                            <div class="row d-flex justify-content-center">
+    
+                                <mat-card style="min-width: 500px;">
+                                    <h4 class="text-info fw-bold text-center">Total: {{total | number:'1.2-3'}} {{money}} </h4>
+                                    <div *ngIf="rules.timeBeforeNewBid > 1">
+                                        <h6 class="text-center">Tiempo faltante para enviar su oferta :</h6>
+                                        <h6 class="text-center fw-bold">{{timeBid}}</h6>
+                                    </div>
+                                    <button [disabled]="false" (click)="validateBid()" class="btn btn-success scale form-control text-white">Enviar oferta</button>
+                                </mat-card>
+    
+                            </div>
+    
+    
+                    </div>
+                </div>
+    
+                </div>
+    
+                <div>
+                    <span class="h6 font-weight-bold"><i class="fa fa-bar-chart-o"></i> Cuadro competitivo</span>
+                    <hr>
+                    <app-spinner *ngIf="loading"></app-spinner>
+                    <div class="mx-2" style="width:1000px; height:500px;" *ngIf="!loading">
+                        <app-auction-chart [color]="color"></app-auction-chart>
+                    </div>
+                </div>
+            </div>
+        </mat-step>
+        
+        <mat-step label="Formulario de Preguntas">
+                    
+            <div class="my-2 formulario">
+              <span class="h6 font-weight-bold"><i class="fa fa-comments-o"></i> Formulario de Preguntas</span>
+              <hr>
+                  <div class="py-2 px-4 bg-light scroll-y-500" *ngIf="surveyGral">
+                      <div class="row font-weight-bold px-3">
+                          {{surveyGral.name}}
+                      </div>
+                      <span class="txt-13">{{surveyGral.description}}</span>
+                      <hr class="mb-1">
+                      <div class="section mx-3" *ngFor="let section of surveyGral.sections">
+                          <div class="font-weight-normal">{{section.name}}</div>
+                          <span class="font-weight-normal fs-13" *ngIf="section.description">{{section.description}}</span>
+                          <hr>
+                          <div class="querys mx-5">
+
+                            <div class="form-group row" *ngFor="let query of section.querys, let indice = index">
+                                
+                              <label for="" class="txt-14 col-sm-5 text-right control-label col-form-label">{{query.name}}
+                              <span class="text-danger" *ngIf="query.required">*</span> </label>
+                                <div class="col-sm-7" *ngIf="query.type == 3" >
+                                  <input type="text" name="query_{{indice}}" [(ngModel)]="query.answer" class="form-control txt-14">
+                                </div>
+                                <div class="col-sm-7" *ngIf="query.type == 4">
+                                  <textarea name="query_{{indice}}" [(ngModel)]="query.answer" id="" class="form-control txt-14" rows="3"></textarea>
+                                </div>
+                                <div class="col-sm-7" *ngIf="query.type == 5">
+                                      <div class="form-check txt-14" *ngFor="let option of query.options, let indice = index">
+                                          <label class="custom-control custom-checkbox">
+                                            <input name="checkbox_{{indice}}" type="checkbox" class="custom-control-input" [(ngModel)] = "option.check" [checked]="option.check">
+                                            <span class="custom-control-indicator"></span>
+                                            <span class="custom-control-description">{{option.name}}</span>
+                                          </label>
+                                      </div>
+                                </div>
+                                <div class="col-sm-7" *ngIf="query.type == 6">
+                                    <select class="custom-select col-12 txt-14" name="query_{{indice}}" id="inlineFormCustomSelect" [(ngModel)]="query.answer">
+                                      <!--<option value="query.answer">Seleccione un valor</option>-->
+                                      <option *ngFor="let option of query.options" [value]="option.name">{{option.name | titlecase}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-7" *ngIf="query.type == 7">
+                                  <input type="date" class="form-control" name="query_{{indice}}" [(ngModel)]="query.answer" id="mdate">
+                                </div>
+
+                            </div>
+                            
+                          <!--</form>-->
+
+                          </div>
+
+                      </div>
+                     <!--<div class="text-right">
+                        <button type="submit" class="btn bg-cyan scale text-white form-control"><i class="fa fa-save"> <span *ngIf="cantAnswers == 0"> Guardar</span><span *ngIf="cantAnswers > 0"> Actualizar</span> </i></button>
+                      </div>-->
+                  </div>
+                  <div *ngIf="!surveyGral" class="alert alert-warning txt-15" role="alert">
+                    No existen preguntas
+                  </div>
+            </div>
+            
+        </mat-step>
+
+        <mat-step label="Documentos Solicitados">
+
+            <div class="mx-3 my-2 documentos">
+                <div >
+                    <span class="h6 font-weight-bold"><i class="fa fa-file-pdf-o"></i> Documentos solicitados</span>
+                    <hr>
+                </div>
+                <div class="py-1">
+                  <div *ngIf="documents.length == 0" class="alert alert-warning txt-15" role="alert">
+                    No existen documentos
+                  </div>
+                    <div *ngIf="documents.length > 0" class="scroll-y-300">
+                        <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th class="text-center">Documento Solicitado</th>
+                              <th class="text-center">Mis Documentos</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let document of documents, let indice=index">
+                              <td style="line-height: 12px;">                                
+                                <p class="h6">{{document.name | titlecase}}</p>
+                                <p class="text-muted txt-13">{{document.instruction}}</p>
+                                <p class="txt-13"><span class="font-weight-bold">Obligatorio: </span><span class="text-muted">{{document.required | boolean}}</span> </p>
+                                <div class="px-4">
+                                  <label *ngIf="document.templateSanitized" class="label label-success scale"><a [href]="document.templateSanitized" class="text-white">Descargar Plantilla</a></label>
+                                  <label *ngIf="!document.templateSanitized" class="label label-danger">Sin Plantilla</label>
+                                </div>
+                              </td>
+                              <td>
+                                <div class="text-center">
+                                  <label for="btnDoc_{{indice}}" class="txt-13 pointer scale label label-info border py-2"><i class="fa fa-paperclip"></i> Seleccionar Documento</label>
+                                  <input (change)="onDocChange($event, document)" type="file" id="btnDoc_{{indice}}" style="display: none;">
+                                  <div *ngIf="document.nameDoc">
+                                    <span class="text-dark txt-13 text-center">{{document.nameDoc}}</span>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                </div>  
+              </div>
+              
+        </mat-step>
+
+    </mat-stepper>
 </div>

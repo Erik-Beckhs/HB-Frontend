@@ -5,7 +5,6 @@ import { PipesModule } from "src/app/pipes/pipes.modules";
 import { ContentInfoComponent } from "./content-info/content-info.component";
 import { ContentPrincipalComponent } from "./content-principal.component";
 import { PrincipalRoutes } from "./content-principal.routes";
-import { CotizacionesComponent } from "./cotizaciones/cotizaciones.component";
 import { InformacionComponent } from "./informacion/informacion.component";
 import { QuotationComponent } from './quotation/quotation.component';
 import { AuctionComponent } from './auction/auction.component';
@@ -18,6 +17,7 @@ import { DialogsModule } from "../dialogs/dialogs.module";
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { environment } from "src/environments/environment";
+import { MyquotationsComponent } from './myquotations/myquotations.component';
 
 const config: SocketIoConfig = { 
     url: environment.wsUrl, options: {} 
@@ -26,14 +26,14 @@ const config: SocketIoConfig = {
 @NgModule({
     declarations:[
         ContentPrincipalComponent,
-        CotizacionesComponent,
         ContentInfoComponent,
         InformacionComponent,
         QuotationComponent,
         AuctionComponent,
         LobbyComponent,
         ContentSideComponent,
-        AuctionChartComponent
+        AuctionChartComponent,
+        MyquotationsComponent
     ],
     imports:[
         SharedModule,
@@ -48,7 +48,7 @@ const config: SocketIoConfig = {
     ],
     exports:[
         ContentPrincipalComponent,
-        CotizacionesComponent,
+
         ContentInfoComponent,
         InformacionComponent
     ],

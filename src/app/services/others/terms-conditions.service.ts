@@ -26,9 +26,9 @@ export class TermsConditionsService {
   }
 
   updateAnswerTermsConditions(term:TermsConditionsInterface){
-    let idAnswerTerm = term.idAnswerTerm
-    let url = `${URL_SERVICE}/api/answerTermss/${idAnswerTerm}`
-    return this.http.patch(url, term)
+    let idAnswerTerm = term.idAnswerTerm;
+    let url = `${URL_SERVICE}/api/answerTermss/${idAnswerTerm}`;
+    return this.http.patch(url, term);
   }
 
   saveAnswerTermsConditions(term:TermsConditionsInterface){

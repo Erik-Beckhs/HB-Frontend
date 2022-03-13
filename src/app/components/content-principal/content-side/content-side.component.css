@@ -68,6 +68,10 @@
  color:#000;
 }
 
+.aside-info hr{
+    background-color: cornsilk;
+}
+
 @media only screen and (min-width:620px) and (max-width:765px){
     .day-start{
         left:70%;

@@ -1,0 +1,122 @@
+<div class="answer px-5 py-4">
+
+    <div class="survey">
+        <div class="h5"><i class="fa fa-question-circle"></i> Formulario de Preguntas</div>
+        <hr>
+
+        <app-spinner *ngIf="loading"></app-spinner>
+        
+        <div *ngIf="!loading">
+            <h6>{{nameSurvey}}</h6>
+
+            <table class="table table-bordered" id="tableSurvey" *ngIf="answerList.length > 0">
+                <thead>
+                    <tr>
+                        <th *ngFor="let item of preguntasHeader">{{item}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+
+            <div *ngIf="answerList.length == 0" class="alert alert-danger txt-15" role="alert">
+                No existen respuestas para el formulario
+            </div>
+        </div>
+    </div>
+
+    <div class="products mt-4">
+        <div class="h5">
+        <i class="fa fa-shopping-cart"></i>
+        Productos / Servicios
+        </div>
+        <hr>
+
+        <app-spinner *ngIf="loading2"></app-spinner>
+
+        <div class="productsList" *ngIf = "!loading2">
+            
+            
+                <div class="product mt-4" *ngFor="let item of answerProducts; let i = index">
+                    <h5> <span class="pl-3 fw-bold">{{i+1}}.   {{item.name | titlecase}}</span></h5>
+                    <table class="table table-bordered" id="tableProducts" > 
+                        <thead>
+                            <tr>
+                                <th>Proveedor</th>
+                                <th>Tiempo de Servicio (dias)</th>
+                                <th>Unidad</th>
+                                <th>Tarifa Unidad</th>
+                                <th>Cantidad</th>
+                                <th>Precio Ofertado</th>
+                                <th>Precio Referencia</th>
+                                <th>%</th>
+                                <th>Vigencia</th>
+                                <th>Ventajas del Servicio</th>
+                                <th>Acerca del Servicio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let answer of item.answers">
+                                <td>{{answer.name}}</td>
+                                <td>{{answer.timeService}}</td>
+                                <td>{{answer.unit}}</td>
+                                <td>{{answer.unitPrice}}</td>
+                                <td>{{answer.amount}}</td>
+                                <td>{{answer.total}}</td>
+                                <td>{{answer.subtotal}}</td>
+                                <td>{{answer.diff}}</td>
+                                <td>{{answer.validity}}</td>
+                                <td>{{answer.advantage}}</td>
+                                <td>{{answer.about}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+        </div>
+    </div>
+
+    <div class="documents mt-4">
+        <div class="h5">
+            <i class="fa fa-file"></i>
+            Documentos Solicitados
+            </div>
+            <hr>
+            <app-spinner *ngIf="loading3"></app-spinner>
+
+            <div class="documenttList" *ngIf="!loading3">
+                <table class="table table-bordered" *ngIf="answerDocsList.length > 0">
+                    <thead>
+                        <tr>
+                            <th>
+                                Proveedor
+                            </th>
+                            <th>
+                                Nombre de Documento
+                            </th>
+                            <th>
+                                Documento de Proveedor
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let doc of answerDocsList">
+                            <td>{{doc.proveedor | titlecase}}</td>
+                            <td>{{doc.documento | titlecase}}</td>
+                            <td class="text-center"><label *ngIf="doc.document" class="label label-success scale">
+                                <a [href]="doc.document" class="text-white h6"> <i class="fa fa-cloud-download"></i> Descargar</a>
+                               </label>
+                               <span *ngIf="!doc.document">Documento no adjunto</span>
+                             </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div *ngIf="answerDocsList.length == 0" class="alert alert-danger txt-15" role="alert">
+                    No existen documentos
+                </div>
+            </div>
+
+    </div>
+</div>

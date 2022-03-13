@@ -1,3 +1,24 @@
+@keyframes animateHeart{
+  0%{
+    transform: rotate(45deg) scale(0.8);
+  }
+  5%{
+    transform: rotate(45deg) scale(0.9);
+  }
+  10%{
+    transform: rotate(45deg) scale(0.8);
+  }
+  15%{
+    transform: rotate(45deg) scale(1);
+  }
+  50%{
+    transform: rotate(45deg) scale(0.8);
+  }
+  100%{
+    transform: rotate(45deg) scale(0.8);
+  }
+}
+
 .quotation hr{
     margin-top:5px;
     margin-bottom: 20px;
@@ -33,7 +54,7 @@
   pointer-events: none !important;
 }
 
-.scroll{
-  height:300px;
-  overflow-y: scroll;
+.heart{
+  transform: rotate(45deg);
+  animation: animateHeart 1.2s infinite;
 }

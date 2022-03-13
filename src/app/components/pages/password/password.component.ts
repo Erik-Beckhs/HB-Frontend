@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmPasswordComponent } from '../../dialogs/confirm-password/confirm-password.component';
+import { ChangePasswordComponent } from '../../dialogs/change-password/change-password.component';
 
 @Component({
   selector: 'app-password',
@@ -16,7 +16,7 @@ export class PasswordComponent implements OnInit {
   }
 
   openDialog(){
-    this.dialog.open(ConfirmPasswordComponent, {
+    this.dialog.open(ChangePasswordComponent, {
       width:'30%'
     });
   }

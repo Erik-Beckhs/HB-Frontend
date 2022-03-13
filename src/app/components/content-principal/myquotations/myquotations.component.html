@@ -1,0 +1,105 @@
+<div class="p-3">
+    <div class="cot-list">
+          <mat-card-title class="d-flex align-items-center text-dark">
+        <mat-icon>shop</mat-icon>
+        <span style="font-size: 17px;" class="pl-1">Cotizaciones en las que participo</span>
+    </mat-card-title>
+    <span class="text-muted pl-4">
+      Adjunte sus respuestas sólo para aquellas cotizaciones que se encuentran <span class="text-dark">en curso. </span> 
+    </span>
+    <hr>
+
+   <!-- <app-sppiner *ngIf="loading"></app-sppiner>
+
+     <div *ngIf="!loading">-->
+
+
+      <mat-form-field appearance="standard">
+          <mat-label>Busqueda</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ingrese una palabra para su busqueda" #input>
+        </mat-form-field>
+        
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" matSort>
+        
+            <!-- ID Column -->
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+              <td mat-cell *matCellDef="let row; let i=index;">  {{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }}</td>
+            </ng-container>
+        
+            <!-- Progress Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Cotización </th>
+              <td mat-cell *matCellDef="let row"><a class="pointer" (click)="routing(row)" >{{row.name}}</a> </td>
+            </ng-container>
+        
+            <!-- Name Column -->
+            <ng-container matColumnDef="mystate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Mi estado </th>
+              <td mat-cell class="text-center"  *matCellDef="let row"><span class="badge w90 fs-13" [ngClass]="styleState(row.mystate)">{{row.mystate | stateQuotation}} </span> </td>
+            </ng-container>
+        
+            <!-- Fruit Column -->
+            <ng-container matColumnDef="applicant">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Solicitante </th>
+              <td mat-cell *matCellDef="let row" class="text-center"> {{row.applicant}} </td>
+            </ng-container>
+
+                  <!-- Fruit Column -->
+                  <ng-container matColumnDef="money">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Moneda </th>
+                      <td mat-cell *matCellDef="let row"> {{row.money | moneySupplier}} </td>
+                    </ng-container>
+
+                          <!-- Fruit Column -->
+            <ng-container matColumnDef="tipocot">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de Solicitud </th>
+              <td mat-cell *matCellDef="let row"> {{row.typeReq | requestType}} </td>
+            </ng-container>
+
+                  <!-- Fruit Column -->
+                  <ng-container matColumnDef="auction">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Subasta </th>
+                      <td mat-cell *matCellDef="let row" class="text-center"><span [ngClass]="auctionStyle(row.auction)" class="badge min-w-35 fs-13"> {{row.auction == 1 ? 'SI' : 'NO'}}</span></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fechaini">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Inicio </th>
+                      <td mat-cell *matCellDef="let row"> {{row.start | date: 'medium'}} </td>
+                    </ng-container>
+              
+                          <!-- Fruit Column -->
+                          <ng-container matColumnDef="fechafin">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha fin </th>
+                              <td mat-cell *matCellDef="let row"> {{row.end | date: 'medium'}} </td>
+                            </ng-container>
+              
+                                  <!-- Fruit Column -->
+                    <ng-container matColumnDef="statequot">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado de la cotización </th>
+                      <td mat-cell *matCellDef="let row" class="text-center"><span class="badge max-w-150 fs-13" [ngClass]="styleStateQuot(row.statequot)"> {{row.statequot | stateQuotationGral}} </span></td>
+                    </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">No se encontraron resultados para: "{{input.value}}"</td>
+            </tr>
+          </table>
+        
+          <mat-paginator
+          fxFlex="100"
+          #paginatorRef
+          [length]="5"
+          [pageSize]="5"
+          [pageSizeOptions]="[5, 10, 20]">
+      </mat-paginator>
+      <!--</div>-->
+
+      </div>
+  </div>
+
+</div>

@@ -1,0 +1,81 @@
+<div class="p-3">
+
+    <div class="rejected">
+      <mat-card-title class="d-flex align-items-center text-dark">
+          <i class="fa fa-suitcase"></i>
+          <span style="font-size: 17px;" class="pl-3"> Proveedores que rechazaron la cotización</span>
+      </mat-card-title>
+    
+    <hr>
+  
+  <app-spinner *ngIf="loading"></app-spinner>
+
+  <div *ngIf="!loading">
+    
+  <div class="bg-gray d-flex justify-content-center align-items-center none fw-bold" *ngIf="listReject.length == 0">
+    No se encontró información
+  </div>
+
+  <div class="px-2" *ngIf="listReject.length > 0">
+
+    <mat-form-field appearance="standard">
+      <mat-label>Busqueda</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Escriba una palabra para su busqueda" #input>
+    </mat-form-field>
+    
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+    
+        <ng-container matColumnDef="#">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+          <td mat-cell *matCellDef="let row; let i = index;"> {{i+1}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="supplier">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Proveedor </th>
+          <td mat-cell  *matCellDef="let row">{{row.supplier | titlecase}}</td>
+         </ng-container>
+    
+        <ng-container matColumnDef="response_date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Rechazo </th>
+          <td mat-cell *matCellDef="let row"> {{row.response_date | date:'short'}} </td>
+        </ng-container>
+    
+
+        <ng-container matColumnDef="name_term">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Término / Condición </th>
+          <td mat-cell *matCellDef="let row"> {{row.name_term | titlecase}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="comment">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Comentario de rechazo</th>
+          <td mat-cell *matCellDef="let row"> {{row.comment}} </td>
+        </ng-container> 
+
+        <ng-container matColumnDef="reason">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Motivo de rechazo</th>
+          <td mat-cell *matCellDef="let row" class="text-danger"> {{row.reason | titlecase}} </td>
+        </ng-container> 
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No se encontró informacion para el filtro "{{input.value}}"</td>
+        </tr>
+      </table>
+    
+      <mat-paginator [pageSizeOptions]="[5]" aria-label="Select page of users"></mat-paginator>
+    </div>
+    
+   </div>
+</div>
+
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cerrar</button>
+    </mat-dialog-actions>
+
+    </div>
+  </div>
+  

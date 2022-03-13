@@ -11,4 +11,5 @@ export class QuotationInterface {
     end?:string
     idApplicant?:string
     idSurvey?:any
+    auction?:any
 }

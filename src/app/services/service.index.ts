@@ -1,3 +1,4 @@
+export { PaysService } from "./components/pays.service";
 export { AuctionService } from "./components/auction.service";
 export { ApplicantService } from "./components/applicant.service";
 export { AuthService } from "./components/auth.service";

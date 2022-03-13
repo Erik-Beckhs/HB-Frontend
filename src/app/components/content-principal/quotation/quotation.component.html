@@ -21,36 +21,32 @@
                               <span class="h6 font-weight-bold"><i class="fa fa-shopping-cart"></i> Productos / Servicios</span>
                           </div>
                           <div class="col-6 d-flex justify-content-end">
-                              <span class="fs13">Vigencia de la oferta en días </span><input [disabled]="products.length == 0" style="height:25px; border-radius:5px; width:50px;" class="ml-2" type="number" min="0">
+                              <span class="fs13 mt-1">Vigencia de la oferta en días </span><input [disabled]="products.length == 0" style="height:25px; border-radius:5px; width:50px;" class="ml-2 fs-15" type="number" min="0" [(ngModel)]="validity">
                           </div>
                       </div>
                       <hr>
                       <div *ngIf="products.length == 0" class="alert alert-warning txt-15" role="alert">
                         No existen productos
                       </div>
-                      <div class="py-1 px-4" *ngIf="products.length > 0">
-                          <div class="scroll">
+                      <div class="py-1 bg-light" *ngIf="products.length > 0">
+                          <div class="scroll-y-300">
                               <table mat-table [dataSource]="dataSource">
-                            
-                                <!-- Position Column -->
+                        
                                 <ng-container matColumnDef="name">
                                   <th mat-header-cell *matHeaderCellDef class="text-center"> Nombre </th>
                                   <td mat-cell *matCellDef="let element"> {{element.tradename | titlecase}} </td>
                                 </ng-container>
                             
-                                <!-- Name Column -->
                                 <ng-container matColumnDef="unit">
                                   <th mat-header-cell *matHeaderCellDef class="text-center"> Unidad </th>
                                   <td mat-cell *matCellDef="let element" class="text-center"> {{element.unit}} </td>
                                 </ng-container>
                             
-                                <!-- Weight Column -->
                                 <ng-container matColumnDef="amount">
                                   <th mat-header-cell *matHeaderCellDef class="text-center"> Cantidad </th>
                                   <td mat-cell *matCellDef="let element" class="text-center"> {{element.amount}} </td>
                                 </ng-container>
                             
-                                <!-- Symbol Column -->
                                 <ng-container matColumnDef="unitPriceOffer">
                                   <th mat-header-cell *matHeaderCellDef class="text-center"> Mi Precio </th>
                                   <td mat-cell *matCellDef="let element" class="text-center"> 
@@ -65,7 +61,7 @@
                                 </ng-container>
       
                                 <ng-container matColumnDef="edit" >
-                                  <th mat-header-cell *matHeaderCellDef class="text-center"> Más información </th>
+                                  <th mat-header-cell *matHeaderCellDef class="text-center"> Características </th>
                                   <td mat-cell *matCellDef="let element" class="text-center">
                                       <button (click)="responseProduct(element)" title="Responder" type="button" class="btn bg-cyan btn-circle text-white scale">
                                           <i class="fa fa-plus"></i> 
@@ -90,7 +86,7 @@
                     </div>
 
                     <div class="text-right">
-                      <button mat-button (click)="checkProducts(stepper)" class="scale">Siguiente</button>
+                      <button mat-raised-button (click)="checkProducts(stepper)" class="scale btn-primary2">Siguiente <i class="fa fa-step-forward"></i> </button>
                     </div>
 
                   <!--</form>-->
@@ -103,7 +99,7 @@
                     <div class="my-2 formulario">
                       <span class="h6 font-weight-bold"><i class="fa fa-comments-o"></i> Formulario de Preguntas</span>
                       <hr>
-                          <div class="py-2 px-4 hover-simple scroll" *ngIf="surveyGral">
+                          <div class="py-2 px-4 hover-simple scroll-y-300" *ngIf="surveyGral">
                               <div class="row font-weight-bold px-3">
                                   {{surveyGral.name}}
                               </div>
@@ -151,7 +147,7 @@
                                   </div>
 
                               </div>
-                             <!-- <div class="text-right">
+                              <!--<div class="text-right">
                                 <button type="submit" class="btn bg-cyan scale text-white form-control"><i class="fa fa-save"> <span *ngIf="cantAnswers == 0"> Guardar</span><span *ngIf="cantAnswers > 0"> Actualizar</span> </i></button>
                               </div>-->
                           </div>
@@ -160,9 +156,9 @@
                           </div>
                     </div>
                     
-                    <div class="text-right">
-                      <button type="button" mat-button (click)="checkRequiredQuerys(stepper, 0)" class="scale">Anterior</button>
-                      <button type="button" mat-button (click)="checkRequiredQuerys(stepper, 1)" class="scale">Siguiente</button>
+                    <div class="d-flex justify-content-between">
+                      <button type="button" mat-raised-button (click)="checkRequiredQuerys(stepper, 0)" class="scale mx-1 btn-primary2"><i class="fa fa-step-backward"></i> Anterior</button>
+                      <button type="button" mat-raised-button (click)="checkRequiredQuerys(stepper, 1)" class="scale mx-1 btn-primary2">Siguiente <i class="fa fa-step-forward"></i></button>
                     </div>
                 </mat-step>
 
@@ -190,7 +186,7 @@
                                   <input (change)="onDocChange($event)" type="file" id="btnDoc" style="display: none;">
                               </div>
                             </div>-->
-                           <div *ngIf="documents.length > 0" class="scroll">
+                           <div *ngIf="documents.length > 0" class="scroll-y-300">
                             <table class="table table-hover">
                               <thead>
                                 <tr>
@@ -219,140 +215,19 @@
                                     </div>
                                   </td>
                                 </tr>
-                                <!--<tr>
-                                  <td style="line-height: 10px;">                                
-                                    <p class="h6">Proforma</p>
-                                    <p class="text-muted txt-13">El presente documento es de caracter excluyente</p>
-                                    <p class="txt-13"><span class="font-weight-bold">Obligatorio: </span><span class="text-muted">NO</span> </p>
-                                    <div class="px-4">
-                                      <label class="label label-danger"><a href="#" class="text-white">Sin plantilla</a></label>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div class="text-center">
-                                      <label for="btnDoc" class="txt-13 pointer scale label label-info border py-2"><i class="fa fa-paperclip"></i> Agregar Documento</label>
-                                    <input (change)="onDocChange($event)" type="file" id="btnDoc" style="display: none;">
-                                    </div>
-                                  </td>
-                                </tr>-->
                               </tbody>
                             </table>
                            </div>
                     </div>  
                   </div>
 
-                  <div class="d-flex justify-content-end">
-                    <button mat-button matStepperPrevious class="scale">Anterior</button>
+                  <div class="d-flex justify-content-between">
+                    <button mat-raised-button matStepperPrevious class="scale btn-primary2">Anterior</button>
                     <button (click)="sendAnswer()" type="button" class="scale btn btn-cyan waves-effect waves-light m-r-10"><i class="fa fa-save"></i> Enviar respuesta al comprador</button>
                   </div>
-                    <!--<button mat-button (click)="stepper.reset()">Reset</button>-->
             
                 </mat-step>
               </mat-stepper>
             </div>    
         </div>
-        <!--<div>
-            <div class="mx-3 my-2 formulario">
-                <span class="h6 font-weight-bold"><i class="fa fa-comments-o"></i> Formulario de Preguntas</span>
-                <hr>
-                    <div class="py-1 px-4">
-                        <div class="row font-weight-bold px-3">
-                            {{surveyGral.name}}
-                        </div>
-                        <span class="fs13">{{surveyGral.description}}</span>
-                        <hr class="mb-1">
-                        <div class="section mx-3" *ngFor="let section of surveyGral.sections">
-                            <div class="font-weight-normal">{{section.name}}</div>
-                            <span class="font-weight-normal fs13" *ngIf="section.description">{{section.description}}</span>
-                            <hr>
-                            <div class="querys" style="height:100px;">
-        
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mx-3 my-2 productos">
-                        <div class="row">
-                            <div class="col-6">
-                                <span class="h6 font-weight-bold"><i class="fa fa-shopping-cart"></i> Productos / Servicios</span>
-                            </div>
-                            <div class="col-6 d-flex justify-content-end">
-                                <span class="fs13">Vigencia de la oferta en días </span><input style="height:25px; border-radius:5px; width:50px;" class="ml-2" type="number" min="0">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="py-1 px-4">
-                            <div class="">
-                                <table mat-table [dataSource]="dataSource">
-                              
-          
-                                  <ng-container matColumnDef="name">
-                                    <th mat-header-cell *matHeaderCellDef class="text-center"> Nombre </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.tradename | titlecase}} </td>
-                                  </ng-container>
-                              
-                                  <ng-container matColumnDef="unit">
-                                    <th mat-header-cell *matHeaderCellDef class="text-center"> Unidad </th>
-                                    <td mat-cell *matCellDef="let element" class="text-center"> {{element.unit}} </td>
-                                  </ng-container>
-                              
-                                 
-                                  <ng-container matColumnDef="amount">
-                                    <th mat-header-cell *matHeaderCellDef class="text-center"> Cantidad </th>
-                                    <td mat-cell *matCellDef="let element" class="text-center"> {{element.amount}} </td>
-                                  </ng-container>
-                              
-                                  
-                                  <ng-container matColumnDef="unitPriceOffer">
-                                    <th mat-header-cell *matHeaderCellDef class="text-center"> Mi Precio </th>
-                                    <td mat-cell *matCellDef="let element" class="text-center"> 
-                                        <input #input (change)="calculate(element, input.value)" type="number" class="form-control w100" name="unitprice" [value]="element.unitPriceOffer"> 
-                                    </td>
-                                  </ng-container>
-        
-                                  <ng-container matColumnDef="subTotalOffer" >
-                                    <th mat-header-cell *matHeaderCellDef class="text-center"> Subtotal </th>
-                                    <td mat-cell *matCellDef="let element" class="text-center">{{element.subTotalOffer | number:'1.2-4'}}</td>
-                                  </ng-container>
-        
-                                  <ng-container matColumnDef="edit" >
-                                    <th mat-header-cell *matHeaderCellDef class="text-center"> Más información </th>
-                                    <td mat-cell *matCellDef="let element" class="text-center">
-                                        <button (click)="responseProduct(element)" [disabled]="!element.idAnswerProd" title="Responder" type="button" class="btn bg-cyan btn-circle text-white">
-                                            <i class="fa fa-plus"></i> 
-                                        </button>
-                                     </td>
-                                  </ng-container>
-                              
-                                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                                </table>
-                              
-                                <mat-paginator [pageSizeOptions]="[5]"
-                                               showFirstLastButtons 
-                                               aria-label="Select page of periodic elements">
-                                </mat-paginator>
-                            </div>
-                    
-                        </div>-->
-                        <!--<div class="text-right my-2">
-                            <button mat-raised-button><i class="fa fa-save"></i> Guardar cambios</button>
-                        </div>-->
-                <!--</div>
-                <div class="mx-3 my-2 documentos">
-                        <div >
-                            <span class="h6 font-weight-bold"><i class="fa fa-file-pdf-o"></i> Documentos solicitados</span>
-                            <hr>
-                        </div>
-                        <div class="row">
-                            <div class="py-1 px-4">
-                                Lista de documentos
-                            </div>
-                        </div>  
-                </div>
-                <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-cyan waves-effect waves-light m-r-10">Enviar respuesta al comprador</button>
-                </div>
-        </div>
-    </form>
-</div>  -->
+       

@@ -37,7 +37,7 @@ export class ContentSideComponent implements OnInit {
             this._quotation.setIdQuot(this.idQuot);
 
             this._quotation.getQuotationById(this.idQuot).subscribe((res:any)=>{
-              this.quotation=res
+              this.quotation=res;
               // let fecha = res.start
               // this.start = fecha.toLocaleString('en-us', { month: 'long' });
               const start = new Date(res.start);  // 2009-11-10

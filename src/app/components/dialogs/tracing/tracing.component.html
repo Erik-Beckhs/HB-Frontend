@@ -1,0 +1,44 @@
+<div class="p-3 tracing">
+    <i class="fa fa-plane"></i><span class="h5">  Seguimiento</span><br>
+    <span class="h5">Orden de Compra <span class="fw-bold">{{data.name}}</span> </span>
+    <hr>
+    <div class="mat-elevation-z8">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nombre embarque</th>
+                    <th>Fecha de creación</th>
+                    <th>Origen</th>
+                    <th>Destino</th>
+                    <th>Modalidad</th>
+                    <th>Dias de transito</th>
+                    <th>Eventos</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of listShipment; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.creationDate | date:'short'}}</td>
+                    <td>{{item.origin}}</td>
+                    <td>{{item.destination}}</td>
+                    <td>{{item.modality}}</td>
+                    <td>{{item.transitDays}}</td>
+                    <td style="font-size:17px; max-width:150px;">
+                        <span *ngFor="let ev of item.events; let j=index" 
+                        class="badge badge-secondary mr-1 cursor" 
+                        [ngClass]="styleEvent(ev.state)"
+                        matTooltip="Nombre Plan: {{ev.name}}, Fecha plan: {{ev.planDate | date:'short'}}, Fecha real : {{ev.realDate | date:'short'}}, Estado: {{ev.state}}">{{j+1}}</span>
+                    </td>
+                    <td>{{item.state | stateShipment}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close class="btn btn-info scale text-white">Cerrar</button>
+    </mat-dialog-actions>
+</div>

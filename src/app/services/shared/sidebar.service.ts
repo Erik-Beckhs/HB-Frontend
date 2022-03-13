@@ -17,9 +17,10 @@ export class SidebarService {
               url:'/pages/ranking'
             }
           ]},
-      {title:'Pago y Facturación', icon:'payment', url:'/pages/pays'},
+      {title:'Pago y Seguimiento', icon:'payment', url:'/pages/pays'},
       {title:'Contraseña', icon:'security', url:'/pages/password'},
-      {title:'Configuracion y privacidad', icon:'settings', url:'/pages/settings'}
+      {title:'Configuracion y privacidad', icon:'settings', url:'/pages/settings'},
+      {title:'Cotizaciones', icon:'assignment_turned_in', url:'/pages/quotationsAdmin'},
       ]
   
   constructor() {

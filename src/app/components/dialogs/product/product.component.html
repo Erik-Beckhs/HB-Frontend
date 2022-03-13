@@ -3,10 +3,10 @@
     <!--<form ngNativeValidate #f="ngForm">-->
     <div>
         <h3>
-            <span>{{type==1?'Producto :': 'Servicio :'}}  </span>
+            <span>{{data.type==1?'Producto :': 'Servicio :'}}  </span>
             {{data.tradename | fillEmpty | titlecase}}</h3>
         <h6 class="text-muted">Ingrese informacion adicional del 
-            <span>{{type==1?'producto': 'servicio'}}  </span>
+            <span>{{data.type==1?'producto': 'servicio'}}  </span>
             solicitado</h6>
         <hr>
     </div>
@@ -46,13 +46,13 @@
             <div class="col-4 h6 text-white">
                 <div class="form-group">
                     <label>Nombre del 
-                        <span>{{type == 1 ?'producto': 'servicio'}} </span>
+                        <span>{{data.type == 1 ?'producto': 'servicio'}} </span>
                         ofertado</label>
                     <input [ngModel]="data.offerName" name="offerName" required type="text" class="form-control ">
                 </div>
                 <div class="form-group">
                     <label>
-                        <span>{{type == 1? 'Número de parte': 'Acerca del servicio'}} </span></label>  
+                        <span>{{data.type == 1? 'Número de parte': 'Acerca del servicio'}} </span></label>  
                     <input [ngModel]="data.about" name="about" type="text" class="form-control">
                 </div>
                 <div class="form-group">
@@ -64,14 +64,14 @@
             <div class="col-4 h6 text-white">
                 <div class="form-group">
                     <label>
-                        <span>Tiempo de {{type==1?'entrega': 'servicio'}}  (dias) </span>
+                        <span>Tiempo de {{data.type==1?'entrega': 'servicio'}}  (dias) </span>
 
                         </label>
                     <input required (change)="validTimeService()"  [ngModel]="data.timeService" name="timeService" type="number" class="form-control" min="0">
                 </div>
                 <div class="form-group">
                     <label>
-                        <span *ngIf = "type==1">Ventajas del {{type==1?'producto': 'servicio'}} </span>
+                        <span >Ventajas del {{data.type ==1 ? 'producto': 'servicio'}} </span>
                     </label>
                     <textarea [ngModel]="data.advantage" name="advantage" class="form-control" id="" cols="30" rows="6"></textarea>
                 </div>

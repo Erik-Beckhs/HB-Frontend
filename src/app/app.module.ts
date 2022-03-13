@@ -10,9 +10,6 @@ import { PagesModule } from './components/pages/pages.module';
 import { SharedModule } from './components/shared/shared.module';
 import { ContentPrincipalModule } from './components/content-principal/content-principal.module';
 
-//Services
-import { LoginService } from './services/service.index';
-
 //Components
 import { AppComponent } from './app.component';
 import { RetrieveComponent } from './components/login/retrieve/retrieve.component';
@@ -29,6 +26,8 @@ import { SharedComponent } from './components/shared/shared.component';
 import { ServiceModule } from './services/service.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DialogsModule } from './components/dialogs/dialogs.module';
+
+
 //import { TermsConditionsHansaComponent } from './components/dialogs/terms-conditions-hansa/terms-conditions-hansa.component';
 
 @NgModule({
@@ -42,9 +41,7 @@ import { DialogsModule } from './components/dialogs/dialogs.module';
     PasswordComponent,
     RespuestasComponent,
     Page404Component,
-    SharedComponent,
-    //TermsConditionsHansaComponent
-    //SupplierPipe
+    SharedComponent
   ],
   entryComponents:[],
   imports: [

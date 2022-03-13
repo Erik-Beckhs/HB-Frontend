@@ -11,7 +11,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 //sweetalert
 import swal from 'sweetalert';
 
-
 @Component({
   selector: 'app-informacion',
   templateUrl: './informacion.component.html',
@@ -22,7 +21,8 @@ export class InformacionComponent implements OnInit {
   intencion:boolean=true;
   idQuot!:any;
   quotation:QuotationInterface = {
-    name:''
+    name:'',
+    typeReq:''
   };
   termsConditions:TermsConditionsInterface[]=[];
   term!:TermsConditionsInterface;
@@ -32,21 +32,24 @@ export class InformacionComponent implements OnInit {
 
   constructor(
     private _terms:TermsConditionsService,
-    private route:ActivatedRoute,
     private _quotation:QuotationService,
     private router:Router,
     private domSanitizer:DomSanitizer,
-    private _contact:ContactsService
+    private _contact:ContactsService,
+    private _activatedRoute:ActivatedRoute
     ) { 
     //obtenemos el parametro id de la ruta
     //this.getParameterIdQuot();
-    this.idQuot = this._quotation.idQuot
+    this.idQuot = this._quotation.idQuot;
+    //this.idQuot = this._activatedRoute.snapshot.params.id
+    //console.log('aqui deberia estar el parametro');
+    //console.log(this.idQuot);
   }
     
   ngOnInit(): void {
-    this.getAnswer()
-
-    this.getConditions(this.idQuot)
+    this.getAnswer();
+    this.getQuotation(this.idQuot);
+    this.getConditions(this.idQuot);
   }
 
   //obtenemos el parametro id de la ruta
@@ -98,8 +101,9 @@ export class InformacionComponent implements OnInit {
   //metodo que devuelve la cotizacion desde el servicio cotizacion
   getQuotation(iq:any)
   {
-    this._quotation.getQuotationById(iq).subscribe(res=>{
-      this.quotation = res
+    this._quotation.getQuotationById(iq).subscribe((res:any)=>{
+      this.quotation = res;
+      console.log(this.quotation);
     })
   }
 
@@ -108,8 +112,7 @@ export class InformacionComponent implements OnInit {
     this._quotation.getAnswerByIdQuotAndIdSupplier(this.idQuot, this._contact.contact.suppliers.id)
     .subscribe(res=>{
       this.answer=res;
-      console.log(this.answer.id)
-      
+      //console.log(this.answer.id)
     })
   }
 
@@ -129,7 +132,6 @@ export class InformacionComponent implements OnInit {
 
   //metodo que envia la informacion al solicitante (cotizacion aceptada o rechazada y motivos)
   sendFormInformation(form:any){
-
     let c:number=0;
     for(let terms of this.termsConditions){
       if(!terms.checkSupplier){
@@ -171,32 +173,31 @@ export class InformacionComponent implements OnInit {
       })
     }
     else{
-      console.log('Aceptado');
+      //console.log('Aceptado');
       swal({
         title:'HANSA Business',
         text:'¿Desea ingresar sus respuestas ahora?',
         icon:'info',
-        buttons:['Si','Más tarde'],
+        buttons:['Más tarde','Si'],
         dangerMode:true,
-      }).then((res)=>{
-        if(!res){
-          for(let term of this.termsConditions){
-            this.updateAnswerTermsConditions(term)
-          }
-          this.answer.state=6;
-          this.answer.responseDate=new Date();
-          this.updateAnswer(this.answer);
+      }).then((value)=>{
+        for(let term of this.termsConditions){
+          this.updateAnswerTermsConditions(term)
+        }
+        this.answer.state = 7;
+        this.answer.responseDate=new Date();
+        this.updateAnswer(this.answer);
 
-          //this.router.navigate([`cot-principal/content-info/${this.idQuot}/quotation`])
+        if(value){
+          if(this.quotation.auction == 1){
+            this.router.navigate([`cot-principal/content-side/${this.idQuot}/auction`])
+          }
+          else{
+            this.router.navigate([`cot-principal/content-side/${this.idQuot}/content-info/quotation`])
+          }
         }
         else{
-          for(let term of this.termsConditions){
-            this.updateAnswerTermsConditions(term)
-          }
-          this.answer.state=7;
-          this.answer.responseDate=new Date();
-          this.updateAnswer(this.answer);
-
+          this.router.navigate(['cot-principal'])
         }
       })
     }
@@ -233,17 +234,20 @@ export class InformacionComponent implements OnInit {
         switch(res.state){
           case 4:
             swal("HANSA Business", "Se rechazó la cotización", "success").then(()=>{
-            this.router.navigate(['cot-principal'])
+                 this.router.navigate(['cot-principal']);
             })
             break;
+          case 5:
+            this.router.navigate([`cot-principal/content-side/${this.idQuot}/auction`]);
+            break;
           case 6:
-            this.router.navigate([`cot-principal/content-side/${this.idQuot}/content-info/quotation`])
+            this.router.navigate([`cot-principal/content-side/${this.idQuot}/content-info/quotation`]);
             break;
           case 7:
-            this.router.navigate(['cot-principal'])
+            console.log('Responder ahora');
             break;
           default:
-            this.router.navigate(['cot-principal'])
+            this.router.navigate(['cot-principal']);
             break;
         }
       })

@@ -74,7 +74,7 @@
         <img *ngIf="imageTemp" [src]="imageTemp" class="w200">
         <input type="file" class="my-2" (change)="onFileChange($event)">
         <!--<button type="button" [disabled]="!imageLoad" class="btn btn-primary btn-block waves-effect waves-light m-r-10"><i class="fa fa-save"></i> Actualizar Imagen</button>-->
-        <button (click)="updateImage()" mat-raised-button [disabled]="!imageLoad"  class="btn px-5 form-control scale"><i class="fa fa-save"></i> Actualizar Imagen</button>
+        <button mat-raised-button (click)="updateImage()" [disabled]="!imageLoad"  class="btn px-5 form-control scale"><i class="fa fa-save"></i> Actualizar Imagen</button>
       </div>  
     </div>
   </div>

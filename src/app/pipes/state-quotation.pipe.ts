@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class StateQuotationPipe implements PipeTransform {
 
   transform(value: any): string {
-    let res:string=''
+    let res:string='';
     switch(value){
       case 1:
         res='Invitado';
@@ -20,22 +20,25 @@ export class StateQuotationPipe implements PipeTransform {
       case 4:
         res='Rechazado';
         break;
-      case 5:
-        res='Concluyó la cotización';
-        break;
-      case 6:
+      // case 5:
+      //   res='Concluyó la cotización';
+      //   break;
+      // case 6:
+      //   res='Aceptado';
+      //   break;
+      case 7:
         res='Aceptado';
         break;
-      case 7:
-        res='Aceptado sin Responder';
-        break;
-      case 8:
-        res='Cotización cancelada';
-        break;
+      // case 8:
+      //   res='Cotización cancelada';
+      //   break;
+      case 9:
+          res='Abandonado';
+          break;
       default:
         res='Desconocido';
         break;
     }
-    return res
+    return res;
   }
 }

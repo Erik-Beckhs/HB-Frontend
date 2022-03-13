@@ -41,8 +41,8 @@
                                     <option *ngFor="let business of businessArea" [value]="business.id">{{business.name}}</option>
                                 </select>
                             </div>
-                            <button type="button" (click)="registerSupplier(f.value)" *ngIf="!supplier.name" mat-raised-button class="btn px-5 form-control scale-hover"><i class="fa fa-save"></i> Registrar</button>
-                            <button type="button" (click)="updateSupplier(f.value)"  *ngIf="supplier.name" mat-raised-button class="btn px-5 form-control scale-hover"><i class="fa fa-save"></i> Actualizar</button>
+                            <button type="button" (click)="registerSupplier(f.value)" *ngIf="!supplier.name" mat-raised-button class="btn px-5 form-control scale"><i class="fa fa-save"></i> Registrar</button>
+                            <button type="button" (click)="updateSupplier(f.value)"  *ngIf="supplier.name" mat-raised-button class="btn px-5 form-control scale"><i class="fa fa-save"></i> Actualizar</button>
                         </form>
                 </div>
             </div>
@@ -55,11 +55,11 @@
                     <p class="text-muted m-b-0 font-13"> {{supplier.name}} </p>
                     <hr>
                     <div class="row d-flex justify-content-center">
-                      <img *ngIf="!imageTemp" [src]="supplier.img" alt="" class="w200">
-                      <img *ngIf="imageTemp" [src]="imageTemp" alt="" class="w200">
+                      <img *ngIf="!imageTemp" [src]="supplier.img" alt="" class="w300">
+                      <img *ngIf="imageTemp" [src]="imageTemp" alt="" class="w300">
                       <input type="file" class="my-2" (change)="onFileChange($event)">
                       <!--<button type="button" [disabled]="!imageLoad" class="btn btn-primary btn-block waves-effect waves-light m-r-10"><i class="fa fa-save"></i> Actualizar Imagen</button>-->
-                      <button (click)="updateImage()" mat-raised-button [disabled]="!imageLoad"  class="btn px-5 form-control scale-hover"><i class="fa fa-save"></i> Guardar Imagen</button>
+                      <button (click)="updateImage()" mat-raised-button [disabled]="!imageLoad"  class="btn px-5 form-control scale"><i class="fa fa-save"></i> Guardar Imagen</button>
                     </div>
                 </div>
             </div>

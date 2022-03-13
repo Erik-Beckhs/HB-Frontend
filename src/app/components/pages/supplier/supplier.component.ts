@@ -116,7 +116,6 @@ export class SupplierComponent implements OnInit {
     //TODO: verificar si ya existe el nombre de proveedor
     supplier.id=this._generateID.generateID();
     supplier.idContact=this.contact.id;
-    //console.log(supplier)
     this._supplier.registerSupplier(supplier).subscribe();
   }
 }

@@ -19,6 +19,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const MaterialComponents = [
     MatButtonModule,
@@ -40,7 +41,8 @@ const MaterialComponents = [
     MatDividerModule,
     MatPaginatorModule,
     CommonModule,
-    MatStepperModule
+    MatStepperModule,
+    MatTooltipModule
 ];
 
 @NgModule({

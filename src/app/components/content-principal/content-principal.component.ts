@@ -12,7 +12,7 @@ export class ContentPrincipalComponent implements OnInit {
 
   constructor(private title:Title) {
     import_plugins()
-    this.title.setTitle('quotations')
+    this.title.setTitle('Cotizaciones')
    }
 
   ngOnInit(): void {

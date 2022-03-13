@@ -53,18 +53,14 @@ export class HeaderComponent implements OnInit {
       title:'HANSA Business',
       text:'¿Desea cerrar sesión y abandonar el sistema?',
       icon:'info',
-      buttons:['Si','No'],
+      buttons:['NO','SI'],
       dangerMode:true,
     }).then((res)=>{
-      if(!res){
+      if(res){
         //console.log('SI')
         //this.router.navigate([`cot-principal/content-info/${this.idQuot}/responder`])
         this.authService.logoutUser()
         location.reload()
-      }
-      else{
-        //this.router.navigate(['cot-principal'])
-        //console.log('Mas tarde')
       }
     })
   }

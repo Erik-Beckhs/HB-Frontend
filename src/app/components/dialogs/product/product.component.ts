@@ -11,14 +11,14 @@ import swal from 'sweetalert'
   ]
 })
 export class ProductComponent implements OnInit {
-  type!:number
-  imageTemp:any
-  file:any 
-  imageLoad!:string
+  //type!:number
+  imageTemp:any;
+  file:any ;
+  imageLoad!:string;
 
-  document:any
-  documentLoad:any
-  nameDocument!:string
+  document:any;
+  documentLoad:any;
+  nameDocument!:string;
 
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
@@ -27,18 +27,20 @@ export class ProductComponent implements OnInit {
   ) { 
     //console.log(this.data)
 
-    if(data.type="producto"){
-      this.type = 1
-    }
-    else if (data.type="servicio"){
-      this.type = 2
-    }
+    // if(data.type="producto"){
+    //   this.type = 1;
+    // }
+    // else if (data.type="servicio"){
+    //   this.type = 2;
+    // }
 
     if(data.doc){
 
       this.nameDocument = data.nameDoc
       this.document = this.dataURLtoFile(data.doc, data.nameDoc)
     }
+
+    //console.log(data);
   }
 
   ngOnInit(): void {
@@ -117,6 +119,7 @@ export class ProductComponent implements OnInit {
   // }
 
   saveProduct(value:any){
+    //console.log(value);
     // console.log(this.data)
     if(this.data.idAnswerProd){
       //actualizar
@@ -182,7 +185,9 @@ export class ProductComponent implements OnInit {
         answerProd.typeDiscount = this.data.typeDiscount,
         answerProd.priceDiscount = this.data.priceDiscount
       }
-  
+
+      console.log(answerProd);
+
       this._product.createAnswerProd(answerProd)
       .subscribe((res:any)=>
       swal("HANSA Business", "Se registró su respuesta para el producto " + res.offerName, "success")

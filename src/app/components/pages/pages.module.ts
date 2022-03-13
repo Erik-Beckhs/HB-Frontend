@@ -12,6 +12,9 @@ import { GeneralComponent } from './general/general.component';
 import { HansaBusinessComponent } from './hansa-business/hansa-business.component';
 import { NotRegisteredComponent } from './not-registered/not-registered.component';
 import { SupplierComponent } from './supplier/supplier.component';
+import { QuotationGralComponent } from './quotation-gral/quotation-gral.component';
+import { AnswerGralComponent } from './answer-gral/answer-gral.component';
+import { QuotationsAdminComponent } from './quotations-admin/quotations-admin.component';
 
 @NgModule({
     declarations:[
@@ -23,7 +26,10 @@ import { SupplierComponent } from './supplier/supplier.component';
         GeneralComponent,
         HansaBusinessComponent,
         NotRegisteredComponent,
-        SupplierComponent
+        SupplierComponent,
+        QuotationGralComponent,
+        AnswerGralComponent,
+        QuotationsAdminComponent
     ],
     imports:[
         SharedModule,

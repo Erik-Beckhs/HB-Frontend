@@ -73,4 +73,54 @@ idSurvey!:string
     let url = `${URL_SERVICE}/api/answerSurveys/${id}`;
     return this.http.delete(url);
   }
+
+  getSurveyByIdQuot(idQuotation:any){
+    let url = `${URL_SERVICE}/api/quotations/${idQuotation}/survey`;
+    return this.http.get(url);
+  }
+
+
+  //metodos para answerSurvey 
+
+  //lista de respuestas de proveedores dada una cotizacion
+  AnswersGralByIdQuotation(idQuotation:any){
+    let url = `${URL_SERVICE}/api/answerSurveys/RespuestasProveedores?idQuotation=${idQuotation}`;
+    return this.http.get(url);
+  }
+
+  SuppliersListSurvey(idQuotation:string){
+    let url = `${URL_SERVICE}/api/answerSurveys/SuppliersListSurvey?idQuotation=${idQuotation}`;
+    return this.http.get(url);
+  }
+
+  QuerysByIdQuot(idQuotation:string){
+    let url = `${URL_SERVICE}/api/answerSurveys/QuerysListSurveyByIdQuot?idQuotation=${idQuotation}`;
+    return this.http.get(url);
+  }
+
+  ListAnswerByIdQuotAndIdQuery(idQuot:any, idQuery:any){
+    let url = `${URL_SERVICE}/api/answerSurveys/AnswerByIdQuotAndIdQuery?idQuotation=${idQuot}&idQuery=${idQuery}`;
+    return this.http.get(url);
+  }
+
+  ///aux
+  createAnswerSurveyAux(answerSurvey:any){
+    let url = `${URL_SERVICE}/api/answerSurveyAuxs`;
+    return this.http.post(url, answerSurvey);
+  }
+
+  deleteAnswerSurveyAux(id:any){
+    let url = `${URL_SERVICE}/api/answerSurveyAuxs/${id}`;
+    return this.http.delete(url);
+  }
+
+  getAnswerSurveyAux(idAnswer:number, idQuery:string){
+    let url = `${URL_SERVICE}/api/answerSurveyAuxs?filter[where][and][0][idAnswer]=${idAnswer}&filter[where][and][1][idQuery]=${idQuery}`;
+    return this.http.get(url);
+  }
+
+  updateAnswerSurveyAux(answerSurveyAux:any){
+      let url = `${URL_SERVICE}/api/answerSurveyAuxs/${answerSurveyAux.id}`;
+      return this.http.patch(url, {answer:answerSurveyAux.answer});
+  }
 }

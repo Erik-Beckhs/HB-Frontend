@@ -13,15 +13,16 @@ import swal from 'sweetalert';
 })
 
 export class ProfileComponent implements OnInit {
-  file:any
+  file:any;
 
   contact:ContactInterface = {
     first_name:''
-  }
-  paisList:any[]=[]
-  positionList:any[]=[]
-  imageLoad!:string
-  imageTemp:any
+  };
+
+  paisList:any[]=[];
+  positionList:any[]=[];
+  imageLoad!:string;
+  imageTemp:any;
 
   // private datos:any = {
   //   name:'',

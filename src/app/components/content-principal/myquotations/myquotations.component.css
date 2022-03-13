@@ -1,0 +1,34 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+
+  th{
+    min-width:50px;
+}
+
+td{
+  font-size:13px;
+}
+  
+  .cot-list{
+    padding:20px;
+  }
+
+  hr{
+    margin-bottom: 0px;
+  }
+
+  .mat-sort-header-arrow {
+    color: #fff !important;
+  }
+
+  .cot-list a{
+    cursor:pointer;
+    color:#0000ff;
+  }

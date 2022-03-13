@@ -10,7 +10,7 @@ import { Title } from '@angular/platform-browser';
 export class LoginComponent implements OnInit {
 
   constructor(private title:Title) { 
-    this.title.setTitle('login')
+    this.title.setTitle('Login - Hansa Business')
   }
 
   ngOnInit(): void {

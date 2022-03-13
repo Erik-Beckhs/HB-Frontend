@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormGroup} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatStepper } from '@angular/material/stepper';
@@ -12,6 +12,7 @@ import { AnswerSendService, ContactsService, DocumentsService, ProductsService, 
 import { ProductComponent } from '../../dialogs/product/product.component';
 import { OnExit } from '../../../guards/exit-quotation.guard';
 import { NgxSpinnerService } from "ngx-spinner";
+import { AnswerService } from 'src/app/services/others/answer.service';
 //import swal from 'sweetalert';
 declare var swal:any
 
@@ -21,14 +22,16 @@ declare var swal:any
   styleUrls: ['./quotation.component.css']
 })
 export class QuotationComponent implements OnInit, OnExit {
-  isCompleted:boolean = false
-  isCompleted2:boolean = true
-  isCompleted3:boolean = true
+  isCompleted:boolean = false;
+  isCompleted2:boolean = true;
+  isCompleted3:boolean = true;
 
   exit:boolean = false;
 
-  prueba:any='valor'
-  //stepper
+  aux:number = 0;
+
+  prueba:any='valor';
+  validity:number = 0;
   isLinear = false;
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
@@ -36,7 +39,7 @@ export class QuotationComponent implements OnInit, OnExit {
   idQuot:string='';
   idSupplier:string='';
   idAnswer:any;
-  quotation!:QuotationInterface
+  quotation!:QuotationInterface;
   survey:any={
     name:''
   };
@@ -53,6 +56,7 @@ export class QuotationComponent implements OnInit, OnExit {
   products:ProductInterface[]=[];
   documents:DocumentInterface[]=[];
 
+  answerSurveyAux:any;
 
   displayedColumns: string[] = ['name', 'unit', 'amount', 'unitPriceOffer', 'subTotalOffer', 'edit'];
   dataSource:any
@@ -71,10 +75,15 @@ export class QuotationComponent implements OnInit, OnExit {
     public dialog:MatDialog,
     private domSanitizer:DomSanitizer,
     public _answerSend:AnswerSendService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private _answer:AnswerService
     ) {
       //obtenemos el id de la cotizacion
       this.idQuot = this._quotation.idQuot;
+
+      // this._quotation.getQuotationById(this.idQuot).subscribe((res)=>{
+      //   console.log(res);
+      // })
 
       this.idSupplier = this._contact.contact.suppliers.id
 
@@ -86,15 +95,11 @@ export class QuotationComponent implements OnInit, OnExit {
       .subscribe((res:any)=>
       {
         this.idAnswer=res.id;
+        this.validity = res.validity || 0 ; 
 
-        if(res.state == 2){
+        if(res.state == 2 || res.state == 4){
           this._answerSend.openModal();
           //this._answerSend.state = 0;
-          this.exit = true;
-        }
-        else if(res.state == 4){
-          this._answerSend.openModal();
-          //this._answerSend.state = 1;
           this.exit = true;
         }
       }
@@ -128,22 +133,56 @@ export class QuotationComponent implements OnInit, OnExit {
       return true;
     }
     else{
-      const msg = confirm ('¿Esta seguro de abandonar la página? No se guardaran sus respuestas');
-      return msg;
+      // const msg = confirm ('¿Esta seguro de abandonar la página? No se guardaran sus respuestas');
+      // return msg;
+      let a = swal({
+        title: "HANSA Business",
+        text:"¿Esta seguro de abandonar la página?",
+        icon: "info",
+        buttons: ['NO', 'SI'],
+        dangerMode: true,
+      }).then((value:boolean)=>{
+        if(value){
+          let b = swal({
+            title: "HANSA Business",
+            text:"¿Desea guardar su información en el estado en el que se encuentra?",
+            icon: "info",
+            buttons: ['Salir sin guardar', 'Guardar y Salir'],
+            dangerMode: true,
+          }).then((value:boolean)=>{
+            if(value){
+              //guardar survey y docs
+              this.formResponse();
+              this.saveDocsRequired();
+            }
+            else{
+              this.clearQuotation();
+            }
+            return true;
+          })
+          return b;
+        }
+        else{
+          return false;
+        }
+        //console.log(valor)
+      });
+      return a;
     }
   }
 
   //devuelve el formulario de preguntas completo
   getSurveyGral(idQuot:any){
     this._quotation.getQuotationById(idQuot).subscribe(res=>{
-      this.quotation=res
+      this.quotation=res;
+
       this._survey.getSurveyAndSectionByIdSurvey(this.quotation.idSurvey).pipe(map(
         (res:any)=>res=res[0]
       )).subscribe((res:any)=>{
         this.surveyGral=res;
         let section:any = res.sections;
         for (let i=0;i<section.length;i++){
-          let querys:object[]=[];
+          let querys:any[]=[];
           this._survey.getQueriesByIdSection(section[i].id)
           .subscribe((res:any)=>{
             for(let j = 0; j < res.length ; j++){
@@ -181,9 +220,20 @@ export class QuotationComponent implements OnInit, OnExit {
                                 }
                             }
                         })
-                        //hacer un for para options de query
-                        //comparar si options.name == answerSurvey.answer1
-                        //agregar campo check al option con true
+
+                        //obtenemos el registro de idAnswerSurveyAux si existe
+                        this._survey.getAnswerSurveyAux(this.idAnswer, resp.id).subscribe((res:any)=>{
+                          //console.log(res);
+                          if(res.length > 0){
+                            this.aux = 1;
+                            // console.log('existe');
+                            // console.log('valor');
+                            this.answerSurveyAux = res[0];
+                            //console.log('valor');
+                           // console.log(this.answerSurveyAux);
+                            //console.log('No existe el registro');
+                          }
+                        })
                       }
                     }
                     else{
@@ -191,18 +241,22 @@ export class QuotationComponent implements OnInit, OnExit {
                     }
                   }
                 )
-                //TODO: si es de tipo desplegable, entrar a answer survey y con idquery e idanswer
-                //devolver un array de respuestas, answerSurvey.answer1 === options.name 
 
               querys.push(resp);
               //console.log('LISTA DE PREGUNTAS')
               //console.log(resp)
               this._survey.countAnswerSurveyByIdAnswer(this.idAnswer)
               .subscribe((res:any)=>this.cantAnswers=res.count)
+
+              if(j+1 == res.length){
+                //querys.sort((a, b) => a.orderQuery - b.orderQuery);
+                  this.surveyGral.sections[i].querys =  querys.sort((a, b) => a.orderQuery - b.orderQuery);
+              }
             })
+
             }
           })
-          this.surveyGral.sections[i].querys = querys;
+
           //TODO: asignar las respuestas de options
         }
         console.log('***FORMULARIO DE PREGUNTAS***');
@@ -210,6 +264,8 @@ export class QuotationComponent implements OnInit, OnExit {
       })
     })
   }
+
+  
 
   //carga los productos de las tablas productos y answer products
   loadProducts(){
@@ -219,11 +275,20 @@ export class QuotationComponent implements OnInit, OnExit {
     .subscribe((res:any)=>{
       this.products=res;
 
-      for(let i=0; i<this.products.length; i++){
+      for(let i=0; i < this.products.length; i++){
 
         this._product.countAnswerProdServByIdAnswerAndIdProdServ(this.idAnswer, this.products[i].id)
         .subscribe((res:any)=>{
+          // console.log('cantidad');
+          // console.log(this.idAnswer);
+          // console.log(this.products[i].id);
+
+          // console.log(res);
+          // debugger;
           //console.log('EXISTE O NO')
+          // console.log('verifica existente');
+          // console.log(this.products[i]);
+          // debugger;
           if(res.count === 0){
             this.products[i].unitPriceOffer = 0;
             this.products[i].subTotalOffer = 0;
@@ -274,15 +339,7 @@ export class QuotationComponent implements OnInit, OnExit {
         .subscribe((res:any)=>{
 
           if(res.count === 0){
-            // this.documentsLoad[i] = {
-            //   idAnswer : this.idAnswer,
-            //   idDoc : idDoc,
-            //   name : '',
-            //   document : ''
-            // }
-            //TODO. hay error por que no se encuentra a idAnswer
             this.documents[i].idAnswer = this.idAnswer
-            //this.documents[i].idDoc = idDoc
             this.documents[i].nameDoc = ''
             this.documents[i].document = ''
             if(this.documents[i].template){
@@ -292,10 +349,7 @@ export class QuotationComponent implements OnInit, OnExit {
           else{
             this._document.getAnswerDocumentByIdAnswerAndIdDocument(this.idAnswer, this.documents[i].id)
             .subscribe((resp:any)=>{
-              //console.log('Respuesta de documento si existe')
-              //console.log(resp)
               this.documents[i].idAnswer = resp.idAnswer
-              //this.documents[i].idDoc = idDoc
               this.documents[i].nameDoc = resp.nameDoc
               this.documents[i].document = resp.document
               this.documents[i].idAnswerDoc = resp.id
@@ -312,18 +366,20 @@ export class QuotationComponent implements OnInit, OnExit {
 
   //muestra el dialog para responder a los productos de la cotizacion
   responseProduct(value:any){
+    //console.log()
+    value.idAnswer = this.idAnswer;
     if(value.unitPriceOffer > 0){
       this.dialog.open(ProductComponent, {
         width:'60%',
-        data: value
+        data: value,
+        disableClose:true
       });
     }
     else{
-      swal("HANSA Business", "Valor de precio no aceptado", "error");
+      swal("HANSA Business", "El precio del producto debe ser mayor a 0", "error");
     }
     // return;
     
-
   }
 
   //calcula el subtotal de la tabla de productos
@@ -389,15 +445,11 @@ export class QuotationComponent implements OnInit, OnExit {
 
   //metodo para enviar las respuestas de la cotizacion al solicitante
   sendAnswer(){
-    //verificar que los documentos obligatorios ya se hayan subido
-    // this.validDocuments()
-    // return;
+
     if(this.validDocuments() > 0){
       swal("HANSA Business", "Existen documentos obligatorios sin cargar", "error")
       return;
     }
-    // console.log(this.documents);
-    // return;
 
     this.saveDocsRequired()
     swal({
@@ -408,16 +460,21 @@ export class QuotationComponent implements OnInit, OnExit {
       buttons:['Cancelar', 'Enviar'],
       dangerMode:true
     }).then((valor:string)=>{
-      if(!valor || valor.length===0){
+      if(!valor || valor.length === 0){
         //console.log('cancelado')
         return ;
       }
-      //console.log(valor)
-      this.updateAnswer(valor)
-      //TODO: guardar comentario y cambiar el estado de la cotizacion
 
+      let answer = {
+        id:this.idAnswer,
+        state:2,
+        commentSupplier:valor,
+        validity:this.validity
+      }
+      
+      this.updateAnswer(answer)
     })
-    //swal()
+
   }
 
   validDocuments(){
@@ -458,17 +515,11 @@ export class QuotationComponent implements OnInit, OnExit {
   }
 
   //mo
-  updateAnswer(comment:string){
-    this.formResponse()
-
-    let answerDocs = {
-      id:this.idAnswer,
-      state:2,
-      commentSupplier:comment
-    }
+  updateAnswer(answer:any){
+    this.formResponse();
     //console.log(answerDocs)
     //return;
-    this._quotation.updateAnswer(answerDocs)
+    this._quotation.updateAnswer(answer)
     .subscribe(()=>
     swal("HANSA Business", "Se registró su respuesta de manera exitosa, gracias por participar en nuestras cotizaciones", "success")
     .then(()=>{
@@ -478,7 +529,7 @@ export class QuotationComponent implements OnInit, OnExit {
     }))
   }
 
-  //metodo que guarda las respuestas a productos por parte del proveedor
+  //metodo que guarda las respuestas a preguntas por parte del proveedor
   formResponse(){
     for(let section of this.surveyGral.sections){
       for(let query of section.querys){
@@ -507,21 +558,48 @@ export class QuotationComponent implements OnInit, OnExit {
             //console.log(answerSurvey)
             this._survey.createAnswerSurvey(answerSurvey).subscribe(()=>{
               //swal("HANSA Business", "Se registró sus respuestas", "success")
-              console.log('Se registró sus respuestas')
+              console.log('Se registró sus respuestas');
             })
           }
         }
         else{
-          //TODO: guardar con opciones
-          //for para eliminar los registros de answersurvey
+          let respOptions:string = '';
           for(let option of query.options){
-            //console.log(option)
+            if(option.check == true){
+              respOptions += `${option.name}, `;
+            }
+          }
+
+          // creamos registro de respuestas de tipo opcional en answerSurveyAux
+          if(this.aux == 1){
+                //dado el idAnswer e idQuery devolver el idAnswerSurveyAux
+                //dado ese id eliminar el registro
+            // this._survey.deleteAnswerSurveyAux(this.answerSurveyAux.id).subscribe(()=>{
+            //   console.log('Se eliminó la respuesta');
+            // });
+            //modificar
+            let optionUpdate = {
+              id:this.answerSurveyAux.id,
+              answer:respOptions
+            }
+            this._survey.updateAnswerSurveyAux(optionUpdate).subscribe();
+          }
+          else{
+            let newOption = {
+              idAnswer : this.idAnswer,
+              answer : respOptions,
+              idQuery : query.options[0].idQuery
+            }
+            this._survey.createAnswerSurveyAux(newOption).subscribe();
+          }
+
+          //creamos el registro en la tabla AnswerSurvey
+          for(let option of query.options){
             if(option.idAnswerSurvey){
-              
               // this._survey.updateAnswerSurvey()
               if(option.check == false){
                 //eliminamos los que han sido desmarcados
-                this._survey.deleteAnswerSurvey(option.idAnswerSurvey).subscribe()
+                this._survey.deleteAnswerSurvey(option.idAnswerSurvey).subscribe();
               }
               else{
                 //actualizar
@@ -586,7 +664,6 @@ export class QuotationComponent implements OnInit, OnExit {
             }
           }
         }
-        
       }
     }
     if(c > 0){
@@ -616,30 +693,70 @@ export class QuotationComponent implements OnInit, OnExit {
 
   //verifica que se haya dado respuesta a al menos un producto
   checkProducts(stepper:MatStepper){
+
     if(this.products.length == 0){
       stepper.next();
     }
     else{
-      let cont:number = 0;
+      //if()
+      let count:number = 0;
+      let count2:number = 0;
       for(let product of this.products){
-        if(product.unitPriceOffer! <= 0 || product.unitPriceOffer == null){
-          cont++
+        if(product.unitPriceOffer !<= 0 || product.unitPriceOffer == null){
+          count++; // no llenados
+        }
+        else{
+          count2++; //llenados
         }
       }
-      if(cont == this.products.length){
-        swal("HANSA Business", "Debe responder al menos a un producto de la cotización", "error")
+      if(this.quotation.adjudicationType === 'Total' && count2 != this.products.length){
+        swal("Cotización Total", "Debe responder a todos los productos para poder participar", "error");
+      }
+      else if(this.quotation.adjudicationType === 'Parcial' && count == this.products.length){
+        swal("Cotización Parcial", "Debe responder al menos a un producto de la cotización", "error");
       }
       else{
+
+        //controla la validez
+        // if(this.validity < 1){
+        //   swal("HANSA Business", "Valor no permitido en vigencia", "error");
+        //   return;
+        // }
+
         stepper.next()
-        //console.log(cont)
-        //console.log(this.products.length)
       }
+
     }
   }
-}
 
-// export class surveyInterface {
-//   name?:string
-//   description?:string
-//   sections?:any[]
-// }
+  clearQuotation(){
+
+    //quitamos validez
+    let answer = {
+      id:this.idAnswer,
+      validity : 0
+    };
+    this._quotation.updateAnswer(answer)
+    .subscribe(()=>{
+      console.log('Se quitó la validez');
+    })
+
+    //eliminamos respuesta a productos
+    this._answer.deleteAnswerProdsByIdAnswer(this.idAnswer)
+    .subscribe(()=>{
+      console.log('Se ellminaron las respuestas a productos');
+    })
+
+    //eliminamos resp a form
+    this._answer.deleteAnswerSurveyByIdAnswer(this.idAnswer)
+    .subscribe(()=>{
+      console.log('Se ellminaron las respuestas al formulario');
+    })
+
+    //eliminamos resp a docs sol
+    this._answer.deleteAnswerDocsByIdAnswer(this.idAnswer)
+    .subscribe(()=>{
+      console.log('Se ellminaron las respuestas a documentos');
+    })
+  }
+}

@@ -38,4 +38,11 @@ export class ProductsService {
     let url = `${URL_SERVICE}/api/answerProdServs`;
     return this.http.post(url, answerProd)
   }
+
+  //answerProdServ
+  getAnswersProducts(idProdServ:any){
+    let url = `${URL_SERVICE}/api/answerProdServs/answerSupplierProducts?idProdServ=${idProdServ}`;
+    return this.http.get(url);
+  }
+  
 }

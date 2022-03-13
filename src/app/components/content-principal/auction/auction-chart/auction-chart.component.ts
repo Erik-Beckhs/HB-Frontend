@@ -13,11 +13,11 @@ import { AuctionService, ContactsService, QuotationService } from 'src/app/servi
   styleUrls: ['./auction-chart.component.css']
 })
 export class AuctionChartComponent implements OnInit{
-  @Input() color:any
-  idAnswer!:string
+  @Input() color:any;
+  idAnswer!:string;
 
   idQuot:any;
-  bids:any
+  bids:any;
 
   contact!:ContactInterface;
 
@@ -153,12 +153,17 @@ export class AuctionChartComponent implements OnInit{
       this.getAuctions();
     })
 
-    //mostrar cuando se han conectado
-    this._webSocket.socket.on('conectado', (point:any) => {
-      //this.socket.on('oferta', (point:any)=>{
-      console.log(point);
-      //this.getAuctions();
-    })
+          //mostrar cuando se han conectado
+          this._webSocket.socket.on('conectado', (msg:any) => {
+            //this.socket.on('oferta', (point:any)=>{
+            console.log(msg);
+            //this.getAuctions();
+          })
+    
+
+    // this._webSocket.socket.on('conectado', function(msg:any) {
+    //   console.log(msg);
+    // });
 
 
     // this._webSocket.socket.on('connect', (point:any) => {
@@ -168,6 +173,7 @@ export class AuctionChartComponent implements OnInit{
     // })
 
   }
+
 
   getAnswer(){
     this._quotation.getAnswerByIdQuotAndIdSupplier(this.idQuot, this._contact.contact.suppliers.id)
@@ -211,13 +217,35 @@ export class AuctionChartComponent implements OnInit{
             pointHoverBackgroundColor: '#fff',
             pointHoverBorderColor: `rgba(${this.color.a}, ${this.color.b}, ${this.color.c} , 0.8)`,
             fill: 'origin',
+          },
+          {
+            data: [26, 40], //totales
+            label: 'SAMSUNG', //nombre de proveedor
+            backgroundColor: `rgba(220, 150, 180 ,0.2)`,
+            borderColor: `rgba(220, 150, 180 ,1)`,
+            pointBackgroundColor: `rgba(220, 150, 180 ,1)`,
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: `rgba(220, 150, 180 , 0.8)`,
+            fill: 'origin',
+          },
+          {
+            data: [100, 40, 50], //totales
+            label: 'TOSHIBA', //nombre de proveedor
+            backgroundColor: `rgba(150,50,20 ,0.2)`,
+            borderColor: `rgba(150,50,20 ,1)`,
+            pointBackgroundColor: `rgba(150,50,20 ,1)`,
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: `rgba(150,50,20 , 0.8)`,
+            fill: 'origin',
           }
         ],
-        labels: this.hours
+        //labels: this.hours
+        labels: [5, 10, 15, 20]
       };
     })
   }
-
 
   // events
   // public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {

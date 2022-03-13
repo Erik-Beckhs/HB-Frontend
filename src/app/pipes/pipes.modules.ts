@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { BooleanPipe } from './boolean.pipe';
+import { DivisionPipe } from './division.pipe';
 import { FillEmptyPipe } from './fill-empty.pipe';
 import { ImgDocPipe } from './img-doc.pipe';
 import { MoneySupplierPipe } from './money-supplier.pipe';
 import { PayconditionSupplierPipe } from './paycondition-supplier.pipe';
 import { PositionContactPipe } from './position-contact.pipe';
 import { RequestTypePipe } from './request-type.pipe';
+import { StateQuotationGralPipe } from './state-quotation-gral.pipe';
 import { StateQuotationPipe } from './state-quotation.pipe';
+import { StateShipmentPipe } from './state-shipment.pipe';
 import { TypeSupplierPipe } from './type-supplier.pipe';
 
 @NgModule({
@@ -19,7 +22,10 @@ import { TypeSupplierPipe } from './type-supplier.pipe';
     RequestTypePipe,
     PositionContactPipe,
     StateQuotationPipe,
-    BooleanPipe
+    StateQuotationGralPipe,
+    BooleanPipe,
+    DivisionPipe,
+    StateShipmentPipe
 
   ],
   imports: [
@@ -34,8 +40,10 @@ import { TypeSupplierPipe } from './type-supplier.pipe';
     RequestTypePipe,
     PositionContactPipe,
     StateQuotationPipe,
-    BooleanPipe
-
+    StateQuotationGralPipe,
+    BooleanPipe,
+    DivisionPipe,
+    StateShipmentPipe
   ]
 })
 export class PipesModule { }

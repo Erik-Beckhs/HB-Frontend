@@ -4,7 +4,7 @@
   
   .pays hr{
     margin-top:15px;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     border: none;
     height: 3px; /* Set the hr color */ 
     color: #CCCCCC; /* old IE */ 
@@ -19,4 +19,22 @@
   .none{
       min-height:180px;
       margin:15px 60px;
+  }
+
+  /*tabla de pagos*/
+
+  mat-form-field{
+    margin-top: 0;
+    width: 100%;
+  }
+
+  table {
+    font-size: 14px;
+    width: 100%;
+  }
+
+  table th{
+    background-color: #004a9f;
+    color: white;
+    font-size: 13px;
   }

@@ -17,9 +17,6 @@ export class RequestTypePipe implements PipeTransform {
       case 3:
         res='Solicitud de Información';
         break;
-      case 4:
-        res='Subasta';
-        break;
       default:
         res='Desconocido'
         break;

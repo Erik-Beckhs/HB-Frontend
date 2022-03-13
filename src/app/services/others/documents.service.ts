@@ -35,4 +35,11 @@ export class DocumentsService {
     let url = `${URL_SERVICE}/api/answerDocss`;
     return this.http.post(url, answerDocument);
   }
+
+  //AnswerDocs
+  answerDocsByIdQuotation(idQuot:any){
+    let url = `${URL_SERVICE}/api/answerDocss/answerDocs?idQuotation=${idQuot}`;
+    return this.http.get(url);
+  }
+  
 }

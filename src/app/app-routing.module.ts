@@ -20,7 +20,7 @@ const routes: Routes = [
 children:[
   {path:'login', component:SigninComponent},
   {path:'', redirectTo:'login', pathMatch:'full'},
-  {path:'register', component:SignupComponent},
+  {path:'register', component:SignupComponent}
 ]
 },
 {path:'retrieve', component:RetrieveComponent},
